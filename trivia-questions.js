@@ -234,7 +234,25 @@ function registerTableButtons() {
 
           teamSelectionDiv.style.display = "none";
           questionDiv.style.display = "none";
-          showCategoryTable();
+          // Show the answer and hide the question
+          const answerDiv = document.getElementById("answer");
+            answerDiv.innerHTML = `
+            <div class="answer-frame">
+              <h1>The Answer is: ...</h1>
+              <div class="answer-content">
+                <p>${question.answer}!!</p>
+                ${question.answerImage ? `<img src="${q.answerImage}"/>` : ''}
+                <button class="continue-button">Continue</button>
+              </div>
+            </div>`;
+            answerDiv.style.display = "block";
+
+        const answerOkButton = document.querySelector(".continue-button");
+          answerOkButton.addEventListener("click", function (event) {
+            answerDiv.style.display = "none";
+              showCategoryTable();
+          })
+
         });
       } else {
         // Display a message saying no questions are available for the selected category and difficulty level
