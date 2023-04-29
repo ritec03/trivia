@@ -89,7 +89,7 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
   }
-  
+
   .choice-button {
     display: flex;
     justify-content: center;
@@ -98,6 +98,16 @@ body {
   .choice-button button {
     margin: 0 10px;
   }
+
+  .question-image {
+    max-width: 80%;
+    border: 10px solid #ccc;
+    padding: 5px;
+    display: block;
+    margin: 0 auto;
+  }
+  
+  
   
   
   

@@ -47,6 +47,7 @@
                 triviaScores.push({question_id: 0, team_name: team, score: 0});
             }
             localStorage.setItem('trivia-scores', JSON.stringify(triviaScores));
+            localStorage.setItem('used-questions', JSON.stringify([]));
             console.log(triviaScores);
 
             // Display the list of participating teams
