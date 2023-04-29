@@ -29,7 +29,7 @@
         });
 
 		// Add event listener for form submission
-		form.addEventListener('submit', function(event) {
+        form.addEventListener('submit', function(event) {
             event.preventDefault();
 
             // Get the number of teams and team names
@@ -40,13 +40,14 @@
                 teamNames.push(teamName);
             }
 
-            // Initialize local storage with team names and scores
-            let teamScores = {};
+            // Initialize local storage with team names and scores for question 0
+            let triviaScores = [];
             for (let i = 0; i < numTeams; i++) {
                 let team = teamNames[i];
-                teamScores[team] = 0;
+                triviaScores.push({question_id: 0, team_name: team, score: 0});
             }
-            localStorage.setItem('trivia-scores', JSON.stringify(teamScores));
+            localStorage.setItem('trivia-scores', JSON.stringify(triviaScores));
+            console.log(triviaScores);
 
             // Display the list of participating teams
             let teamsList = document.createElement('ul');
@@ -61,6 +62,7 @@
             teamsContainer.appendChild(teamsList);
             document.body.appendChild(teamsContainer);
         });
+
 
 		// Add event listener for changing the number of teams
 		numTeamsInput.addEventListener('input', function(event) {

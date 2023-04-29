@@ -22,22 +22,42 @@
 		// NOTE start python server  by running  python -m http.server
 		function generateScoreTable() {
 			// Get the scores from local storage
-			let scores = JSON.parse(localStorage.getItem('trivia-scores') || '{}');
+			let scores = JSON.parse(localStorage.getItem('trivia-scores') || '[]');
+
+			// Calculate the total score for each team
+			let teamScores = {};
+			for (let i = 0; i < scores.length; i++) {
+				let teamName = scores[i].team_name;
+				let questionScore = scores[i].score;
+				if (teamScores[teamName]) {
+					teamScores[teamName] += questionScore;
+				} else {
+					teamScores[teamName] = questionScore;
+				}
+			}
+
+			// Sort the teams in decreasing order of score
+			let sortedTeams = Object.keys(teamScores).sort(function(a, b) {
+				return teamScores[b] - teamScores[a];
+			});
 
 			// Generate a row for each team with its score
 			let scoreTable = document.getElementById('score-table');
 			let tableBody = scoreTable.querySelector('tbody');
-			for (let teamName in scores) {
+			for (let i = 0; i < sortedTeams.length; i++) {
+				let teamName = sortedTeams[i];
 				let tableRow = document.createElement('tr');
 				let cell1 = document.createElement('td');
 				cell1.innerHTML = teamName;
 				tableRow.appendChild(cell1);
 				let cell2 = document.createElement('td');
-				cell2.innerHTML = scores[teamName];
+				cell2.innerHTML = teamScores[teamName];
 				tableRow.appendChild(cell2);
 				tableBody.appendChild(tableRow);
 			}
 		}
+
+
 
 
 

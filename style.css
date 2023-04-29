@@ -79,4 +79,25 @@ body {
   .yellow {
     color: #ffab00;
   }
+
+  .question-content {
+    background-color: #c17900;
+    padding: 20px;
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .choice-button {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .choice-button button {
+    margin: 0 10px;
+  }
+  
+  
   
