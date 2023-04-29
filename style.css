@@ -127,6 +127,20 @@ body {
     width: 100%;
   }
   
+  .choice-list {
+    list-style: none;
+    font-size: 1.2rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 20px;
+    grid-row-gap: 10px;
+  }
+  
+  .choice-item {
+    border: 2px solid #333;
+    padding: 10px;
+    border-radius: 10px;
+  }
   
   
   

@@ -64,7 +64,8 @@ const sampleQuestions = [
         difficulty: 1,
         question: "What is the capital of France?",
         answer: "Paris",
-        image: "things/sliced-french-bread.jpg"
+        image: "things/sliced-french-bread.jpg",
+        choices: ['Paris', 'Rome', 'Moscow','London'],
       }
       ,
   {
@@ -155,6 +156,14 @@ function registerTableButtons() {
         <div class="question-content">
             <h2>${question.question}</h2>
             ${question.image ? `<img class="question-image" src="${question.image}">` : ''}
+            ${question.choices ? `
+                <ul class="choice-list">
+                    <li class="choice-item">${question.choices[0]}</li>
+                    <li class="choice-item">${question.choices[1]}</li>
+                    <li class="choice-item">${question.choices[2]}</li>
+                    <li class="choice-item">${question.choices[3]}</li>
+                </ul>
+            ` : ''}
             <div class="choice-button">
             <button class="correct-button">Correct</button>
             <button class="incorrect-button">Incorrect</button>
