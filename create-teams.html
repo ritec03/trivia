@@ -1,0 +1,78 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<title>Create Teams</title>
+</head>
+<body>
+	<h1>Create Teams</h1>
+	<p>Please enter the number of teams and their names:</p>
+	<form>
+		<label for="num-teams">Number of teams:</label>
+		<input type="number" id="num-teams" min="1" required><br>
+		<div id="team-names">
+			<label for="team-name-1">Team name 1:</label>
+			<input type="text" id="team-name-1" required><br>
+		</div>
+		<button type="submit" id="create-teams-button">Create teams</button>
+	</form>
+    <button id="scoreboard-button">Go to Leaderboard</button>
+	<script>
+		const form = document.querySelector('form');
+		const numTeamsInput = document.getElementById('num-teams');
+		const teamNamesDiv = document.getElementById('team-names');
+		const createTeamsButton = document.getElementById('create-teams-button');
+
+        const scoreboardButton = document.getElementById('scoreboard-button');
+        scoreboardButton.addEventListener('click', function(event) {
+            window.location.href = 'trivia-scoreboard.html';
+        });
+
+		// Add event listener for form submission
+		form.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Get the number of teams and team names
+            let numTeams = parseInt(numTeamsInput.value);
+            let teamNames = [];
+            for (let i = 1; i <= numTeams; i++) {
+                let teamName = document.getElementById(`team-name-${i}`).value;
+                teamNames.push(teamName);
+            }
+
+            // Initialize local storage with team names and scores
+            let teamScores = {};
+            for (let i = 0; i < numTeams; i++) {
+                let team = teamNames[i];
+                teamScores[team] = 0;
+            }
+            localStorage.setItem('trivia-scores', JSON.stringify(teamScores));
+
+            // Display the list of participating teams
+            let teamsList = document.createElement('ul');
+            for (let i = 0; i < numTeams; i++) {
+                let team = teamNames[i];
+                let teamItem = document.createElement('li');
+                teamItem.textContent = team;
+                teamsList.appendChild(teamItem);
+            }
+            let teamsContainer = document.createElement('div');
+            teamsContainer.appendChild(document.createTextNode('Participating teams: '));
+            teamsContainer.appendChild(teamsList);
+            document.body.appendChild(teamsContainer);
+        });
+
+		// Add event listener for changing the number of teams
+		numTeamsInput.addEventListener('input', function(event) {
+			let numTeams = parseInt(numTeamsInput.value);
+			let teamNamesHtml = '';
+			for (let i = 1; i <= numTeams; i++) {
+				teamNamesHtml += `<label for="team-name-${i}">Team name ${i}:</label>`;
+				teamNamesHtml += `<input type="text" id="team-name-${i}" required><br>`;
+			}
+			teamNamesDiv.innerHTML = teamNamesHtml;
+		});
+	</script>
+</body>
+</html>
+
