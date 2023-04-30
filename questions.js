@@ -305,7 +305,6 @@ export const questions = [
     difficulty: 1,
     question: `"D'oh!" is the catchphrase of which character?`,
     answer: "Homer Simpson",
-    answerImage: "catchy/homer-doh.jpg",
   },
   {
     id: 36,
@@ -313,7 +312,6 @@ export const questions = [
     difficulty: 2,
     question: `"What the deuce?" is the catchphrase of which character?`,
     answer: "Stewie Griffin",
-    answerImage: "catchy/stewie-deuce.jpg",
   },
   {
     id: 37,
@@ -321,7 +319,6 @@ export const questions = [
     difficulty: 1,
     question: `"Wubba lubba dub dub!" is the catchphrase of which character?`,
     answer: "Rick Sanchez",
-    answerImage: "catchy/rick-wubba.jpg",
   },
   {
     id: 38,
@@ -329,7 +326,6 @@ export const questions = [
     difficulty: 3,
     question: `"Respect my authoritah!" is the catchphrase of which character?`,
     answer: "Eric Cartman",
-    answerImage: "catchy/cartman-respect.jpg",
   },
   {
     id: 39,
@@ -337,7 +333,6 @@ export const questions = [
     difficulty: 2,
     question: `"Eat my shorts!" is the catchphrase of which character?`,
     answer: "Bart Simpson",
-    answerImage: "catchy/bart-shorts.jpg",
   },
   {
     id: 40,
@@ -345,7 +340,6 @@ export const questions = [
     difficulty: 1,
     question: `"Giggity!" is the catchphrase of which character?`,
     answer: "Glenn Quagmire",
-    answerImage: "catchy/quagmire-giggity.jpg",
   },
   {
     id: 41,
@@ -354,7 +348,6 @@ export const questions = [
     question:
       `"I turned myself into a pickle!" is a line from which character?`,
     answer: "Rick Sanchez",
-    answerImage: "catchy/rick-pickle.jpg",
   },
   {
     id: 42,
@@ -363,7 +356,6 @@ export const questions = [
     question:
       `"Screw you guys, I'm going home!" is the catchphrase of which character?`,
     answer: "Eric Cartman",
-    answerImage: "catchy/cartman-screw.jpg",
   },
   {
     id: 43,
@@ -371,7 +363,6 @@ export const questions = [
     difficulty: 3,
     question: `"What's up, doc?" is the catchphrase of which character?`,
     answer: "Bugs Bunny",
-    answerImage: "catchy/bugs-whatsup.jpg",
   },
   {
     id: 44,
@@ -379,7 +370,6 @@ export const questions = [
     difficulty: 2,
     question: `"Oh, boy!" is the catchphrase of which character?`,
     answer: "Mickey Mouse",
-    answerImage: "catchy/mickey-ohboy.jpg",
   },
   {
     id: 45,
@@ -387,7 +377,6 @@ export const questions = [
     difficulty: 3,
     question: `"Cowabunga!" is the catchphrase of which character?`,
     answer: "Michelangelo",
-    answerImage: "catchy/mikey-cowabunga.jpg",
   },
   {
     id: 46,
@@ -395,7 +384,6 @@ export const questions = [
     difficulty: 3,
     question: `"Aye carumba!" is the catchphrase of which character?`,
     answer: "Bart Simpson",
-    answerImage: "catchy/aye-carumba.jpg",
   },
   {
     id: 47,
