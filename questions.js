@@ -2,6 +2,7 @@
 const VANCOUVER_CAT = "Vancouver Landmarks";
 const THINGS_CAT = "Things";
 const TRICKY_CAT = "Tricky Questions";
+const CATCHY_CAT = "Catchy Things";
 
 export const questions = [
 {
@@ -292,6 +293,102 @@ export const questions = [
     difficulty: 2,
     question: "I can be cracked, made, told, and played. What am I?",
     answer: "A joke."
-  }
-  
+  },
+  {
+    id: 35,
+    category: CATCHY_CAT,
+    difficulty: 1,
+    question: `"D'oh!" is the catchphrase of which character?`,
+    answer: "Homer Simpson",
+    answerImage: "catchy/homer-doh.jpg"
+  },
+  {
+    id: 36,
+    category: CATCHY_CAT,
+    difficulty: 2,
+    question: `"What the deuce?" is the catchphrase of which character?`,
+    answer: "Stewie Griffin",
+    answerImage: "catchy/stewie-deuce.jpg"
+  },
+  {
+    id: 37,
+    category: CATCHY_CAT,
+    difficulty: 1,
+    question: `"Wubba lubba dub dub!" is the catchphrase of which character?`,
+    answer: "Rick Sanchez",
+    answerImage: "catchy/rick-wubba.jpg"
+  },
+  {
+    id: 38,
+    category: CATCHY_CAT,
+    difficulty: 3,
+    question: `"Respect my authoritah!" is the catchphrase of which character?`,
+    answer: "Eric Cartman",
+    answerImage: "catchy/cartman-respect.jpg"
+  },
+  {
+    id: 39,
+    category: CATCHY_CAT,
+    difficulty: 2,
+    question: `"Eat my shorts!" is the catchphrase of which character?`,
+    answer: "Bart Simpson",
+    answerImage: "catchy/bart-shorts.jpg"
+  },
+  {
+    id: 40,
+    category: CATCHY_CAT,
+    difficulty: 1,
+    question: `"Giggity!" is the catchphrase of which character?`,
+    answer: "Glenn Quagmire",
+    answerImage: "catchy/quagmire-giggity.jpg"
+  },
+  {
+    id: 41,
+    category: CATCHY_CAT,
+    difficulty: 1,
+    question: `"I turned myself into a pickle!" is a line from which character?`,
+    answer: "Rick Sanchez",
+    answerImage: "catchy/rick-pickle.jpg"
+  },
+  {
+    id: 42,
+    category: CATCHY_CAT,
+    difficulty: 2,
+    question: `"Screw you guys, I'm going home!" is the catchphrase of which character?`,
+    answer: "Eric Cartman",
+    answerImage: "catchy/cartman-screw.jpg"
+  },
+  {
+    id: 43,
+    category: CATCHY_CAT,
+    difficulty: 3,
+    question: `"What's up, doc?" is the catchphrase of which character?`,
+    answer: "Bugs Bunny",
+    answerImage: "catchy/bugs-whatsup.jpg"
+  },
+  {
+    id: 44,
+    category: CATCHY_CAT,
+    difficulty: 2,
+    question: `"Oh, boy!" is the catchphrase of which character?`,
+    answer: "Mickey Mouse",
+    answerImage: "catchy/mickey-ohboy.jpg"
+  },
+  {
+    id: 45,
+    category: CATCHY_CAT,
+    difficulty: 3,
+    question: `"Cowabunga!" is the catchphrase of which character?`,
+    answer: "Michelangelo",
+    answerImage: "catchy/mikey-cowabunga.jpg"
+  },
+  {
+    id: 46,
+    category: CATCHY_CAT,
+    difficulty: 3,
+    question: `"Aye carumba!" is the catchphrase of which character?`,
+    answer: "Bart Simpson",
+    answerImage: "catchy/aye-carumba.jpg"
+  },
+   
 ];
