@@ -3,6 +3,7 @@ const VANCOUVER_CAT = "Vancouver Landmarks";
 const THINGS_CAT = "Things";
 const TRICKY_CAT = "Tricky Questions";
 const CATCHY_CAT = "Catchy Things";
+const ANIMAL_CAT = "Animals";
 
 export const questions = [
 {
@@ -390,5 +391,110 @@ export const questions = [
     answer: "Bart Simpson",
     answerImage: "catchy/aye-carumba.jpg"
   },
+  {
+    id: 47,
+    category: ANIMAL_CAT,
+    difficulty: 2,
+    question: "Helminthology is the study of which creature?",
+    answer: "Parasitic Worm",
+    choices: ["Badger", "Mole", "Parasitic Worm", "Centipede"]
+  },
+  {
+    id: 48,
+    category: ANIMAL_CAT,
+    difficulty: 1,
+    question: "What is the only fruit in which the seeds grow on the outside of its skin?",
+    answer: "Strawberry",
+    choices: ["Kumquat", "Bilberry", "Strawberry", "Gooseberry"]
+  },
+  {
+    id: 49,
+    category: ANIMAL_CAT,
+    difficulty: 2,
+    question: "What color is the tongue of a giraffe?",
+    answer: "Black",
+    choices: ["Red", "Yellow", "Green", "Black"]
+  },
+  {
+    id: 50,
+    category: ANIMAL_CAT,
+    difficulty: 3,
+    question: "What is the collective name for a group of frogs?",
+    answer: "Army",
+    choices: ["Army", "Herd", "Legion", "Tribe"]
+  },
+  {
+    id: 51,
+    category: ANIMAL_CAT,
+    difficulty: 3,
+    question: "The bark of which tree was originally used to make aspirin?",
+    answer: "Willow",
+    choices: ["Redwood", "Birch", "Oak", "Willow"]
+  },
+  {
+    id: 52,
+    category: ANIMAL_CAT,
+    difficulty: 3,
+    question: "Trumpeter, Whooper and Mute are species of which type of bird?",
+    answer: "Swan",
+    choices: ["Duck", "Ostrich", "Swan", "Penguin"]
+  },
+  {
+    id: 53,
+    category: ANIMAL_CAT,
+    difficulty: 1,
+    question: "The leaves of which tree are the staple diet of the koala?",
+    answer: "Eucalyptus",
+    choices: ["Banksia", "Eucalyptus", "Golden Wattle", "Moreton Bay Fig"]
+  },
+  {
+    id: 54,
+    category: ANIMAL_CAT,
+    difficulty: 2,
+    question: "Which of the following animals is not a marsupial?",
+    answer: "Platypus",
+    choices: ["Platypus", "Wombat", "Opossum", "Bandicoot"]
+  },
+  {
+    id: 55,
+    category: ANIMAL_CAT,
+    difficulty: 2,
+    question: "With no internal or external skeleton, how many hearts does an octopus have?",
+    answer: "Three",
+    choices: ["Two", "None", "One", "Three"]
+  },
+  {
+    id: 56,
+    category: ANIMAL_CAT,
+    difficulty: 1,
+    question: "What colour are flamingos when they are born?",
+    answer: "Grey",
+    choices: ["White", "Blue", "Grey", "Pink"]
+  },
+  {
+    id: 57,
+    category: ANIMAL_CAT,
+    difficulty: 1,
+    question: "What is an infant seal called?",
+    answer: "Pup",
+    choices: ["Calf", "Cub", "Babe", "Pup"]
+  },
+  {    id: 59,
+    category: ANIMAL_CAT,
+    difficulty: 2,
+    question: "The extinct flightless bird 'dodo' was principally native to which island?",
+    answer: "Mauritius",
+    choices: ["Tasmania", "Zanzibar", "Madagascar", "Mauritius"]
+  },
+
+  {
+    id: 60,
+    category: ANIMAL_CAT,
+    difficulty: 2,
+    question: 'A "Lepidopterist" is someone who studies which type of animal?',
+    answer: "Butterflies",
+    choices: ["Butterflies", "Fish", "Ants", "Birds"]
+  },
+  
    
 ];
