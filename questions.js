@@ -1,13 +1,13 @@
-
 const VANCOUVER_CAT = "Vancouver Landmarks";
 const THINGS_CAT = "Things";
 const TRICKY_CAT = "Tricky Questions";
 const CATCHY_CAT = "Catchy Things";
 const ANIMAL_CAT = "Animals";
 const COUNTRY_CAT = "Country Siluettes";
+const FOOD_CAT = "Food";
 
 export const questions = [
-{
+  {
     id: 1,
     category: VANCOUVER_CAT,
     difficulty: 1,
@@ -15,8 +15,7 @@ export const questions = [
     answer: "Canada Place",
     answerImage: "vancouver_landmarks/a-canadap-1.jpg",
     image: "vancouver_landmarks/q-canadap-1.png",
-    }
-    ,
+  },
   {
     id: 2,
     category: VANCOUVER_CAT,
@@ -238,63 +237,67 @@ export const questions = [
     category: TRICKY_CAT,
     difficulty: 3,
     question: "What is always in front of you but can't be seen?",
-    answer: "The future."
+    answer: "The future.",
   },
   {
     id: 27,
     category: TRICKY_CAT,
     difficulty: 2,
     question: "What has a neck but no head, two arms but no hands?",
-    answer: "A shirt."
+    answer: "A shirt.",
   },
   {
     id: 28,
     category: TRICKY_CAT,
     difficulty: 3,
-    question: "I am taken from a mine and shut up in a wooden case, from which I am never released, and yet I am used by almost every person. What am I?",
-    answer: "A pencil."
+    question:
+      "I am taken from a mine and shut up in a wooden case, from which I am never released, and yet I am used by almost every person. What am I?",
+    answer: "A pencil.",
   },
   {
     id: 29,
     category: TRICKY_CAT,
     difficulty: 3,
-    question: "I am light as a feather, yet the strongest one cannot hold me for long. What am I?",
-    answer: "Breath."
+    question:
+      "I am light as a feather, yet the strongest one cannot hold me for long. What am I?",
+    answer: "Breath.",
   },
   {
     id: 30,
     category: TRICKY_CAT,
     difficulty: 1,
     question: "The more you take, the more you leave behind. What am I?",
-    answer: "Footsteps."
+    answer: "Footsteps.",
   },
   {
     id: 31,
     category: TRICKY_CAT,
     difficulty: 1,
-    question: "I am always hungry, I must always be fed, the finger I touch, will soon turn red. What am I?",
-    answer: "Fire."
+    question:
+      "I am always hungry, I must always be fed, the finger I touch, will soon turn red. What am I?",
+    answer: "Fire.",
   },
   {
     id: 32,
     category: TRICKY_CAT,
     difficulty: 2,
     question: "What has a head and a tail, but no body?",
-    answer: "A coin."
+    answer: "A coin.",
   },
   {
     id: 33,
     category: TRICKY_CAT,
     difficulty: 1,
-    question: "I am an odd number. Take away a letter and I become even. What number am I?",
-    answer: "Seven."
+    question:
+      "I am an odd number. Take away a letter and I become even. What number am I?",
+    answer: "Seven.",
   },
   {
     id: 34,
     category: TRICKY_CAT,
     difficulty: 2,
     question: "I can be cracked, made, told, and played. What am I?",
-    answer: "A joke."
+    answer: "A joke.",
   },
   {
     id: 35,
@@ -302,7 +305,7 @@ export const questions = [
     difficulty: 1,
     question: `"D'oh!" is the catchphrase of which character?`,
     answer: "Homer Simpson",
-    answerImage: "catchy/homer-doh.jpg"
+    answerImage: "catchy/homer-doh.jpg",
   },
   {
     id: 36,
@@ -310,7 +313,7 @@ export const questions = [
     difficulty: 2,
     question: `"What the deuce?" is the catchphrase of which character?`,
     answer: "Stewie Griffin",
-    answerImage: "catchy/stewie-deuce.jpg"
+    answerImage: "catchy/stewie-deuce.jpg",
   },
   {
     id: 37,
@@ -318,7 +321,7 @@ export const questions = [
     difficulty: 1,
     question: `"Wubba lubba dub dub!" is the catchphrase of which character?`,
     answer: "Rick Sanchez",
-    answerImage: "catchy/rick-wubba.jpg"
+    answerImage: "catchy/rick-wubba.jpg",
   },
   {
     id: 38,
@@ -326,7 +329,7 @@ export const questions = [
     difficulty: 3,
     question: `"Respect my authoritah!" is the catchphrase of which character?`,
     answer: "Eric Cartman",
-    answerImage: "catchy/cartman-respect.jpg"
+    answerImage: "catchy/cartman-respect.jpg",
   },
   {
     id: 39,
@@ -334,7 +337,7 @@ export const questions = [
     difficulty: 2,
     question: `"Eat my shorts!" is the catchphrase of which character?`,
     answer: "Bart Simpson",
-    answerImage: "catchy/bart-shorts.jpg"
+    answerImage: "catchy/bart-shorts.jpg",
   },
   {
     id: 40,
@@ -342,23 +345,25 @@ export const questions = [
     difficulty: 1,
     question: `"Giggity!" is the catchphrase of which character?`,
     answer: "Glenn Quagmire",
-    answerImage: "catchy/quagmire-giggity.jpg"
+    answerImage: "catchy/quagmire-giggity.jpg",
   },
   {
     id: 41,
     category: CATCHY_CAT,
     difficulty: 1,
-    question: `"I turned myself into a pickle!" is a line from which character?`,
+    question:
+      `"I turned myself into a pickle!" is a line from which character?`,
     answer: "Rick Sanchez",
-    answerImage: "catchy/rick-pickle.jpg"
+    answerImage: "catchy/rick-pickle.jpg",
   },
   {
     id: 42,
     category: CATCHY_CAT,
     difficulty: 2,
-    question: `"Screw you guys, I'm going home!" is the catchphrase of which character?`,
+    question:
+      `"Screw you guys, I'm going home!" is the catchphrase of which character?`,
     answer: "Eric Cartman",
-    answerImage: "catchy/cartman-screw.jpg"
+    answerImage: "catchy/cartman-screw.jpg",
   },
   {
     id: 43,
@@ -366,7 +371,7 @@ export const questions = [
     difficulty: 3,
     question: `"What's up, doc?" is the catchphrase of which character?`,
     answer: "Bugs Bunny",
-    answerImage: "catchy/bugs-whatsup.jpg"
+    answerImage: "catchy/bugs-whatsup.jpg",
   },
   {
     id: 44,
@@ -374,7 +379,7 @@ export const questions = [
     difficulty: 2,
     question: `"Oh, boy!" is the catchphrase of which character?`,
     answer: "Mickey Mouse",
-    answerImage: "catchy/mickey-ohboy.jpg"
+    answerImage: "catchy/mickey-ohboy.jpg",
   },
   {
     id: 45,
@@ -382,7 +387,7 @@ export const questions = [
     difficulty: 3,
     question: `"Cowabunga!" is the catchphrase of which character?`,
     answer: "Michelangelo",
-    answerImage: "catchy/mikey-cowabunga.jpg"
+    answerImage: "catchy/mikey-cowabunga.jpg",
   },
   {
     id: 46,
@@ -390,7 +395,7 @@ export const questions = [
     difficulty: 3,
     question: `"Aye carumba!" is the catchphrase of which character?`,
     answer: "Bart Simpson",
-    answerImage: "catchy/aye-carumba.jpg"
+    answerImage: "catchy/aye-carumba.jpg",
   },
   {
     id: 47,
@@ -398,15 +403,16 @@ export const questions = [
     difficulty: 2,
     question: "Helminthology is the study of which creature?",
     answer: "Parasitic Worm",
-    choices: ["Badger", "Mole", "Parasitic Worm", "Centipede"]
+    choices: ["Badger", "Mole", "Parasitic Worm", "Centipede"],
   },
   {
     id: 48,
     category: ANIMAL_CAT,
     difficulty: 1,
-    question: "What is the only fruit in which the seeds grow on the outside of its skin?",
+    question:
+      "What is the only fruit in which the seeds grow on the outside of its skin?",
     answer: "Strawberry",
-    choices: ["Kumquat", "Bilberry", "Strawberry", "Gooseberry"]
+    choices: ["Kumquat", "Bilberry", "Strawberry", "Gooseberry"],
   },
   {
     id: 49,
@@ -414,7 +420,7 @@ export const questions = [
     difficulty: 2,
     question: "What color is the tongue of a giraffe?",
     answer: "Black",
-    choices: ["Red", "Yellow", "Green", "Black"]
+    choices: ["Red", "Yellow", "Green", "Black"],
   },
   {
     id: 50,
@@ -422,7 +428,7 @@ export const questions = [
     difficulty: 3,
     question: "What is the collective name for a group of frogs?",
     answer: "Army",
-    choices: ["Army", "Herd", "Legion", "Tribe"]
+    choices: ["Army", "Herd", "Legion", "Tribe"],
   },
   {
     id: 51,
@@ -430,7 +436,7 @@ export const questions = [
     difficulty: 3,
     question: "The bark of which tree was originally used to make aspirin?",
     answer: "Willow",
-    choices: ["Redwood", "Birch", "Oak", "Willow"]
+    choices: ["Redwood", "Birch", "Oak", "Willow"],
   },
   {
     id: 52,
@@ -438,7 +444,7 @@ export const questions = [
     difficulty: 3,
     question: "Trumpeter, Whooper and Mute are species of which type of bird?",
     answer: "Swan",
-    choices: ["Duck", "Ostrich", "Swan", "Penguin"]
+    choices: ["Duck", "Ostrich", "Swan", "Penguin"],
   },
   {
     id: 53,
@@ -446,7 +452,7 @@ export const questions = [
     difficulty: 1,
     question: "The leaves of which tree are the staple diet of the koala?",
     answer: "Eucalyptus",
-    choices: ["Banksia", "Eucalyptus", "Golden Wattle", "Moreton Bay Fig"]
+    choices: ["Banksia", "Eucalyptus", "Golden Wattle", "Moreton Bay Fig"],
   },
   {
     id: 54,
@@ -454,15 +460,16 @@ export const questions = [
     difficulty: 2,
     question: "Which of the following animals is not a marsupial?",
     answer: "Platypus",
-    choices: ["Platypus", "Wombat", "Opossum", "Bandicoot"]
+    choices: ["Platypus", "Wombat", "Opossum", "Bandicoot"],
   },
   {
     id: 55,
     category: ANIMAL_CAT,
     difficulty: 2,
-    question: "With no internal or external skeleton, how many hearts does an octopus have?",
+    question:
+      "With no internal or external skeleton, how many hearts does an octopus have?",
     answer: "Three",
-    choices: ["Two", "None", "One", "Three"]
+    choices: ["Two", "None", "One", "Three"],
   },
   {
     id: 56,
@@ -470,7 +477,7 @@ export const questions = [
     difficulty: 1,
     question: "What colour are flamingos when they are born?",
     answer: "Grey",
-    choices: ["White", "Blue", "Grey", "Pink"]
+    choices: ["White", "Blue", "Grey", "Pink"],
   },
   {
     id: 57,
@@ -478,14 +485,16 @@ export const questions = [
     difficulty: 1,
     question: "What is an infant seal called?",
     answer: "Pup",
-    choices: ["Calf", "Cub", "Babe", "Pup"]
+    choices: ["Calf", "Cub", "Babe", "Pup"],
   },
-  {    id: 59,
+  {
+    id: 59,
     category: ANIMAL_CAT,
     difficulty: 2,
-    question: "The extinct flightless bird 'dodo' was principally native to which island?",
+    question:
+      "The extinct flightless bird 'dodo' was principally native to which island?",
     answer: "Mauritius",
-    choices: ["Tasmania", "Zanzibar", "Madagascar", "Mauritius"]
+    choices: ["Tasmania", "Zanzibar", "Madagascar", "Mauritius"],
   },
 
   {
@@ -494,96 +503,212 @@ export const questions = [
     difficulty: 2,
     question: 'A "Lepidopterist" is someone who studies which type of animal?',
     answer: "Butterflies",
-    choices: ["Butterflies", "Fish", "Ants", "Birds"]
+    choices: ["Butterflies", "Fish", "Ants", "Birds"],
   },
   {
-  id: 61,
-  category: COUNTRY_CAT,
-  difficulty: 1,
-  question: "Which country is it?",
-  answer: "Russia",
-  image: "countries/1-russia.png",
-},
-{
-  id: 62,
-  category: COUNTRY_CAT,
-  difficulty: 1,
-  question: "Which country is it?",
-  answer: "Japan",
-  image: "countries/1-japan.jpg",
-},
-{
-  id: 63,
-  category: COUNTRY_CAT,
-  difficulty: 2,
-  question: "Which country is it?",
-  answer: "Denmark",
-  image: "countries/2-denmark.jpg",
-},
-{
-  id: 64,
-  category: COUNTRY_CAT,
-  difficulty: 2,
-  question: "Which country is it?",
-  answer: "Turkey",
-  image: "countries/2-turkey.png",
-},
-{
-  id: 65,
-  category: COUNTRY_CAT,
-  difficulty: 2,
-  question: "Which country is it?",
-  answer: "Croatia",
-  image: "countries/2-croatia.png",
-},
-{
-  id: 66,
-  category: COUNTRY_CAT,
-  difficulty: 2,
-  question: "Which country is it?",
-  answer: "Iceland",
-  image: "countries/2-iceland.png",
-},
-{
-  id: 67,
-  category: COUNTRY_CAT,
-  difficulty: 2,
-  question: "Which country is it?",
-  answer: "Norway",
-  image: "countries/2-norway.png",
-},
-{
-  id: 68,
-  category: COUNTRY_CAT,
-  difficulty: 3,
-  question: "Which country is it?",
-  answer: "Thailand",
-  image: "countries/3-thailand.png",
-},
-{
-  id: 69,
-  category: COUNTRY_CAT,
-  difficulty: 3,
-  question: "Which country is it?",
-  answer: "Egypt",
-  image: "countries/3-egypt.png",
-},
-{
-  id: 70,
-  category: COUNTRY_CAT,
-  difficulty: 3,
-  question: "Which country is it?",
-  answer: "South Korea",
-  image: "countries/3-south-korea.jpg.webp",
-},
-{
+    id: 61,
+    category: COUNTRY_CAT,
+    difficulty: 1,
+    question: "Which country is it?",
+    answer: "Russia",
+    image: "countries/1-russia.png",
+  },
+  {
+    id: 62,
+    category: COUNTRY_CAT,
+    difficulty: 1,
+    question: "Which country is it?",
+    answer: "Japan",
+    image: "countries/1-japan.jpg",
+  },
+  {
+    id: 63,
+    category: COUNTRY_CAT,
+    difficulty: 2,
+    question: "Which country is it?",
+    answer: "Denmark",
+    image: "countries/2-denmark.jpg",
+  },
+  {
+    id: 64,
+    category: COUNTRY_CAT,
+    difficulty: 2,
+    question: "Which country is it?",
+    answer: "Turkey",
+    image: "countries/2-turkey.png",
+  },
+  {
+    id: 65,
+    category: COUNTRY_CAT,
+    difficulty: 2,
+    question: "Which country is it?",
+    answer: "Croatia",
+    image: "countries/2-croatia.png",
+  },
+  {
+    id: 66,
+    category: COUNTRY_CAT,
+    difficulty: 2,
+    question: "Which country is it?",
+    answer: "Iceland",
+    image: "countries/2-iceland.png",
+  },
+  {
+    id: 67,
+    category: COUNTRY_CAT,
+    difficulty: 2,
+    question: "Which country is it?",
+    answer: "Norway",
+    image: "countries/2-norway.png",
+  },
+  {
+    id: 68,
+    category: COUNTRY_CAT,
+    difficulty: 3,
+    question: "Which country is it?",
+    answer: "Thailand",
+    image: "countries/3-thailand.png",
+  },
+  {
+    id: 69,
+    category: COUNTRY_CAT,
+    difficulty: 3,
+    question: "Which country is it?",
+    answer: "Egypt",
+    image: "countries/3-egypt.png",
+  },
+  {
+    id: 70,
+    category: COUNTRY_CAT,
+    difficulty: 3,
+    question: "Which country is it?",
+    answer: "South Korea",
+    image: "countries/3-south-korea.jpg.webp",
+  },
+  {
     id: 71,
     category: COUNTRY_CAT,
     difficulty: 3,
     question: "Which country is it?",
     answer: "The Philippines",
     image: "countries/3-philippines.jpg",
-  }
-
-   
+  },
+  {
+    id: 72,
+    category: FOOD_CAT,
+    difficulty: 1,
+    question:
+      "What popular two-word Thai dish, served as either street food or a staple of Thai restaurants, is typically made with rice noodles, scrambled egg, peanuts, and meat, among other items?",
+    answer: "Pad Thai",
+  },
+  {
+    id: 73,
+    category: FOOD_CAT,
+    difficulty: 1,
+    question:
+      "Pizza Margherita is a typical Neapolitan pizza made with tomatoes, mozzarella cheese, salt, extra-virgin olive oil, and what culinary herb?",
+    answer: "Basil",
+  },
+  {
+    id: 74,
+    category: FOOD_CAT,
+    difficulty: 1,
+    question:
+      "One of Andy Warhol's most famous artworks is a set of 32 canvases, each bearing an image of a red-and-white can of soup from what company?",
+    answer: "Campbell's",
+  },
+  {
+    id: 75,
+    category: FOOD_CAT,
+    difficulty: 1,
+    question:
+      "A pestle is one half of a common pair of kitchen utensils used for grinding spices. What is the name of the pestle's bowl-like partner?",
+    answer: "Mortar",
+  },
+  {
+    id: 76,
+    category: FOOD_CAT,
+    difficulty: 1,
+    question: "Japanese horseradish is more popularly known as what?",
+    answer: "Wasabi",
+  },
+  {
+    id: 77,
+    category: FOOD_CAT,
+    difficulty: 2,
+    question:
+      "What is the common name for the food that is technically steamed balls of crushed durum wheat semolina? It originated as a Maghrebi dish served with a stew spooned.",
+    answer: "Couscous",
+  },
+  {
+    id: 78,
+    category: FOOD_CAT,
+    difficulty: 2,
+    question: "For what food is the Scoville scale used to measure spiciness?",
+    answer: "Chili peppers",
+  },
+  {
+    id: 79,
+    category: FOOD_CAT,
+    difficulty: 2,
+    question:
+      "What distilled alcoholic spirit has an English name derived from a diminutive form a foreign word for water? In essence, this means the word can be interpreted as 'little water'.",
+    answer: "Vodka",
+  },
+  {
+    id: 80,
+    category: FOOD_CAT,
+    difficulty: 2,
+    question:
+      "Dramatically different from today's sweet fruit associated with summertime, what large fruit was cultivated for hundreds of years simply for hydration purposes rather than food?",
+    answer: "Watermelon",
+  },
+  {
+    id: 81,
+    category: FOOD_CAT,
+    difficulty: 2,
+    question:
+      "If you take a cabbage, cut it finely, and ferment it with various lactic acid bacteria, the output is typically what German side dish?",
+    answer: "Sauerkraut",
+  },
+  {
+    id: 82,
+    category: FOOD_CAT,
+    difficulty: 2,
+    question:
+      "What staple of Korean cuisine is made from salted and fermented vegetables? The most common ingredients are cabbage and Korean radishes.",
+    answer: "Kimchi",
+  },
+  {
+    id: 83,
+    category: FOOD_CAT,
+    difficulty: 3,
+    question:
+      "What privately held corporation, founded in 1911 in Tacoma, WA, is a conglomerate that has not only its namesake bars popular around the world, but also “M&M’s”, pet food, and animal care services?",
+    answer: "Mars",
+  },
+  {
+    id: 84,
+    category: FOOD_CAT,
+    difficulty: 3,
+    question:
+      "As part of a mid-1960s promotion for Toblerone, Swiss chef Conrad Egli invented a chocolate version of what dippy communal dish?",
+    answer: "Fondue",
+  },
+  {
+    id: 85,
+    category: FOOD_CAT,
+    difficulty: 3,
+    question:
+      "What alcoholic spirit is found in all three of these cocktails: Gimlet, Aviation, and Tom Collins?",
+    answer: "Gin",
+  },
+  {
+    id: 86,
+    category: FOOD_CAT,
+    difficulty: 3,
+    question:
+      "What Indian spice that usually grows in pods is used to make chai tea?",
+    answer: "Cardamom",
+  },
 ];
