@@ -1,12 +1,13 @@
+import {questions as allQuestions} from '/questions.js';
 // // Get references to relevant elements in the HTML document
+
 
 // Define a function to generate a random question from the given category and difficulty level
 function generateQuestion(category, difficulty) {
   // Retrieve the list of questions that have not been used yet from local storage
   const usedQuestions = JSON.parse(localStorage.getItem("used-questions")) ||
     [];
-  console.log(sampleQuestions);
-  const questions = sampleQuestions.filter((q) => (
+  const questions = allQuestions.filter((q) => (
     q.category === category && q.difficulty === difficulty &&
     !usedQuestions.includes(q.id)
   ));
@@ -28,11 +29,15 @@ function generateQuestion(category, difficulty) {
 function hasUnusedQuestions(category, difficulty) {
   // Retrieve the list of questions that have not been used yet from local storage
   const usedQuestions = JSON.parse(localStorage.getItem("used-questions")) || [];
-  const questions = sampleQuestions.filter((q) => (
+  console.log(category);
+  console.log(difficulty);
+  console.log(allQuestions);
+  const questions = allQuestions.filter((q) => (
     q.category === category && q.difficulty === difficulty &&
     !usedQuestions.includes(q.id)
   ));
 
+  console.log(questions);
   // If there are no more unused questions matching the category and difficulty, return false
   return questions.length > 0;
 }
@@ -57,74 +62,74 @@ function showCategoryTable() {
   registerTableButtons();
 }
 
-const sampleQuestions = [
-    {
-        id: 1,
-        category: "1",
-        difficulty: 1,
-        question: "What is the capital of France?",
-        answer: "Paris",
-        image: "things/sliced-french-bread.jpg",
-        choices: ['Paris', 'Rome', 'Moscow','London'],
-      }
-      ,
-  {
-    id: 2,
-    category: "2",
-    difficulty: 2,
-    question: "What is the smallest planet in the solar system?",
-    answer: "Mercury",
-  },
-  {
-    id: 3,
-    category: "3",
-    difficulty: 3,
-    question: "What is the highest mountain in Africa?",
-    answer: "Mount Kilimanjaro",
-  },
-  {
-    id: 4,
-    category: "4",
-    difficulty: 1,
-    question: "What is the largest country by land area?",
-    answer: "Russia",
-  },
-  {
-    id: 5,
-    category: "5",
-    difficulty: 2,
-    question: "What is the capital of Australia?",
-    answer: "Canberra",
-  },
-  {
-    id: 6,
-    category: "6",
-    difficulty: 3,
-    question: "What is the largest ocean?",
-    answer: "Pacific Ocean",
-  },
-  {
-    id: 7,
-    category: "7",
-    difficulty: 1,
-    question: "What is the most populous country in the world?",
-    answer: "China",
-  },
-  {
-    id: 8,
-    category: "8",
-    difficulty: 2,
-    question: "What is the largest desert in the world?",
-    answer: "Sahara",
-  },
-  {
-    id: 9,
-    category: "9",
-    difficulty: 3,
-    question: "What is the smallest country in the world?",
-    answer: "Vatican City",
-  },
-];
+// const questions = [
+//     {
+//         id: 1,
+//         category: "1",
+//         difficulty: 1,
+//         question: "What is the capital of France?",
+//         answer: "Paris",
+//         image: "things/sliced-french-bread.jpg",
+//         choices: ['Paris', 'Rome', 'Moscow','London'],
+//       }
+//       ,
+//   {
+//     id: 2,
+//     category: "2",
+//     difficulty: 2,
+//     question: "What is the smallest planet in the solar system?",
+//     answer: "Mercury",
+//   },
+//   {
+//     id: 3,
+//     category: "3",
+//     difficulty: 3,
+//     question: "What is the highest mountain in Africa?",
+//     answer: "Mount Kilimanjaro",
+//   },
+//   {
+//     id: 4,
+//     category: "4",
+//     difficulty: 1,
+//     question: "What is the largest country by land area?",
+//     answer: "Russia",
+//   },
+//   {
+//     id: 5,
+//     category: "5",
+//     difficulty: 2,
+//     question: "What is the capital of Australia?",
+//     answer: "Canberra",
+//   },
+//   {
+//     id: 6,
+//     category: "6",
+//     difficulty: 3,
+//     question: "What is the largest ocean?",
+//     answer: "Pacific Ocean",
+//   },
+//   {
+//     id: 7,
+//     category: "7",
+//     difficulty: 1,
+//     question: "What is the most populous country in the world?",
+//     answer: "China",
+//   },
+//   {
+//     id: 8,
+//     category: "8",
+//     difficulty: 2,
+//     question: "What is the largest desert in the world?",
+//     answer: "Sahara",
+//   },
+//   {
+//     id: 9,
+//     category: "9",
+//     difficulty: 3,
+//     question: "What is the smallest country in the world?",
+//     answer: "Vatican City",
+//   },
+// ];
 
 function registerTableButtons() {
   // Get all the buttons in the table
@@ -201,7 +206,8 @@ function registerTableButtons() {
               teamNames.push(teamName);
             }
           }
-          for (teamName of teamNames) {
+          console.log(`team names are ${teamNames}`);
+          for (const teamName of teamNames) {
             if (
               !Array.from(teamSelect.options).some((option) =>
                 option.value === teamName
@@ -245,12 +251,13 @@ function registerTableButtons() {
           questionDiv.style.display = "none";
           // Show the answer and hide the question
           const answerDiv = document.getElementById("answer");
+          console.log(question.answerImage);
             answerDiv.innerHTML = `
             <div class="answer-frame">
               <h1>The Answer is: ...</h1>
               <div class="answer-content">
                 <p>${question.answer}!!</p>
-                ${question.answerImage ? `<img src="${q.answerImage}"/>` : ''}
+                ${question.answerImage ? `<img src="${question.answerImage}"/>` : ''}
                 <button class="continue-button">Continue</button>
               </div>
             </div>`;
