@@ -4,6 +4,7 @@ const THINGS_CAT = "Things";
 const TRICKY_CAT = "Tricky Questions";
 const CATCHY_CAT = "Catchy Things";
 const ANIMAL_CAT = "Animals";
+const COUNTRY_CAT = "Country Siluettes";
 
 export const questions = [
 {
@@ -495,6 +496,94 @@ export const questions = [
     answer: "Butterflies",
     choices: ["Butterflies", "Fish", "Ants", "Birds"]
   },
-  
+  {
+  id: 61,
+  category: COUNTRY_CAT,
+  difficulty: 1,
+  question: "Which country is it?",
+  answer: "Russia",
+  image: "countries/1-russia.png",
+},
+{
+  id: 62,
+  category: COUNTRY_CAT,
+  difficulty: 1,
+  question: "Which country is it?",
+  answer: "Japan",
+  image: "countries/1-japan.jpg",
+},
+{
+  id: 63,
+  category: COUNTRY_CAT,
+  difficulty: 2,
+  question: "Which country is it?",
+  answer: "Denmark",
+  image: "countries/2-denmark.jpg",
+},
+{
+  id: 64,
+  category: COUNTRY_CAT,
+  difficulty: 2,
+  question: "Which country is it?",
+  answer: "Turkey",
+  image: "countries/2-turkey.png",
+},
+{
+  id: 65,
+  category: COUNTRY_CAT,
+  difficulty: 2,
+  question: "Which country is it?",
+  answer: "Croatia",
+  image: "countries/2-croatia.png",
+},
+{
+  id: 66,
+  category: COUNTRY_CAT,
+  difficulty: 2,
+  question: "Which country is it?",
+  answer: "Iceland",
+  image: "countries/2-iceland.png",
+},
+{
+  id: 67,
+  category: COUNTRY_CAT,
+  difficulty: 2,
+  question: "Which country is it?",
+  answer: "Norway",
+  image: "countries/2-norway.png",
+},
+{
+  id: 68,
+  category: COUNTRY_CAT,
+  difficulty: 3,
+  question: "Which country is it?",
+  answer: "Thailand",
+  image: "countries/3-thailand.png",
+},
+{
+  id: 69,
+  category: COUNTRY_CAT,
+  difficulty: 3,
+  question: "Which country is it?",
+  answer: "Egypt",
+  image: "countries/3-egypt.png",
+},
+{
+  id: 70,
+  category: COUNTRY_CAT,
+  difficulty: 3,
+  question: "Which country is it?",
+  answer: "South Korea",
+  image: "countries/3-south-korea.jpg.webp",
+},
+{
+    id: 71,
+    category: COUNTRY_CAT,
+    difficulty: 3,
+    question: "Which country is it?",
+    answer: "The Philippines",
+    image: "countries/3-philippines.jpg",
+  }
+
    
 ];
