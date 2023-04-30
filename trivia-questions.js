@@ -219,6 +219,11 @@ function registerTableButtons() {
               teamSelect.add(option);
             }
           }
+          // create the None option
+          let noneOption = document.createElement("option");
+          noneOption.value = "None";
+          noneOption.text = "None";
+          teamSelect.add(noneOption);
         });
 
         incorrectButton.addEventListener("click", function (event) {
@@ -229,17 +234,19 @@ function registerTableButtons() {
         // Add event listener for the OK button in the team selection dropdown
         // this will add the score
         teamOkButton.addEventListener("click", function (event) {
-          let teamName = teamSelect.value;
-          let scores = JSON.parse(
-            localStorage.getItem("trivia-scores") || "[]",
-          );
-          let score = {
-            question_id: question.id,
-            team_name: teamName,
-            score: question.difficulty * 100, // Replace with the actual score awarded for a correct answer
-          };
-          scores.push(score);
-          localStorage.setItem("trivia-scores", JSON.stringify(scores));
+          if (teamSelect.value !== "None") {
+            let teamName = teamSelect.value;
+            let scores = JSON.parse(
+              localStorage.getItem("trivia-scores") || "[]",
+            );
+            let score = {
+              question_id: question.id,
+              team_name: teamName,
+              score: question.difficulty * 100, // Replace with the actual score awarded for a correct answer
+            };
+            scores.push(score);
+            localStorage.setItem("trivia-scores", JSON.stringify(scores));
+          }
 
           // Add the question id to the used questions list and store it in local storage
           const usedQuestions =

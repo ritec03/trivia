@@ -101,6 +101,7 @@ body {
 
   .question-image {
     max-width: 80%;
+    max-height: 600px;
     border: 10px solid #ccc;
     padding: 5px;
     display: block;
