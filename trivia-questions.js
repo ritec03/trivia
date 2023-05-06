@@ -86,7 +86,7 @@ function createTableCell(category, difficulty) {
   const cellClass = `${category}-${difficulty}`.trim().replace(/\s/g, '_'); // class doesn't accept whitespaces
   cell.classList.add(cellClass);
   if (hasUnusedQuestions(category, diffDict[difficulty])) {
-    cell.innerHTML = `<button>${difficulty}</button>`;
+    cell.innerHTML = `<button class="btn">${difficulty}</button>`;
   } else {
     cell.textContent = 'CLOSED';
   }
@@ -132,13 +132,13 @@ function displayQuestion(question) {
           </ul>
       ` : ''}
       <div class="choice-button">
-      <button class="correct-button">Correct</button>
-      <button class="go-back-button">Back</button>
+        <button class="btn grey-btn" id="correct-button">Correct</button>
+        <button class="btn grey-btn" id="go-back-button">Back</button>
       </div>
       <div class="team-selection" style="display: none;">
-      <label for="team-select">Select team:</label>
-      <select class="team-select"></select>
-      <button class="team-ok-button">OK</button>
+        <label for="team-select">Select team to award points to:</label>
+        <select id="team-select"></select>
+        <button class="btn grey-btn" id="team-ok-button">OK</button>
       </div>
   </div>
   </div>`;
@@ -147,11 +147,11 @@ function displayQuestion(question) {
   document.getElementById("category-table").style.display = "none";
   questionDiv.style.display = "block";
 
-  const correctButton = document.querySelector(".correct-button");
-  const goBackButton = document.querySelector(".go-back-button");
+  const correctButton = document.querySelector("#correct-button");
+  const goBackButton = document.querySelector("#go-back-button");
   const teamSelectionDiv = document.querySelector(".team-selection");
-  const teamSelect = document.querySelector(".team-select");
-  const teamOkButton = document.querySelector(".team-ok-button");
+  const teamSelect = document.querySelector("#team-select");
+  const teamOkButton = document.querySelector("#team-ok-button");
 
   // Add event listeners
   correctButton.addEventListener("click", function (event) {
