@@ -1,6 +1,11 @@
 import {questions as allQuestions} from '/questions.js';
 // // Get references to relevant elements in the HTML document
 
+const diffDict = {
+  100: 1,
+  200: 2,
+  300: 3,
+};
 
 // Define a function to generate a random question from the given category and difficulty level
 function generateQuestion(category, difficulty) {
@@ -8,11 +13,9 @@ function generateQuestion(category, difficulty) {
   const usedQuestions = JSON.parse(localStorage.getItem("used-questions")) ||
     [];
   const questions = allQuestions.filter((q) => (
-    q.category === category && q.difficulty === difficulty &&
+    q.category.trim() === category && q.difficulty === difficulty &&
     !usedQuestions.includes(q.id)
   ));
-
-  console.log(questions);
 
   // If there are no more unused questions matching the category and difficulty, return null
   if (questions.length === 0) {
@@ -42,22 +45,59 @@ function hasUnusedQuestions(category, difficulty) {
   return questions.length > 0;
 }
 
-function showCategoryTable() {
-  const categoryTable = document.getElementById("table");
-  const cells = categoryTable.getElementsByTagName("td");
-  for (let i = 0; i < cells.length; i++) {
-    const [category, difficulty] = cells[i].className.split("-");
-    const diffDict = {
-      100: 1,
-      200: 2,
-      300: 3,
-    };
-    if (hasUnusedQuestions(category, diffDict[difficulty])) {
-      cells[i].innerHTML = `<button>${difficulty}</button>`;
-    } else {
-      cells[i].innerHTML = "CLOSED";
-    }
+function generateCategoryTable() {
+  const categories = new Set(allQuestions.map(q => q.category));
+  const table = document.createElement('table');
+  table.id = 'table';
+
+  // Create table headers
+  const tableHeaders = document.createElement('thead');
+  const headerRow = document.createElement('tr');
+  for (const category of categories) {
+    const headerCell = document.createElement('th');
+    headerCell.textContent = category;
+    headerRow.appendChild(headerCell);
   }
+  tableHeaders.appendChild(headerRow);
+  table.appendChild(tableHeaders);
+
+  // Create table rows
+  const tableBody = document.createElement('tbody');
+  for (const difficulty of Object.keys(diffDict)) {
+    const row = document.createElement('tr');
+    for (const category of categories) {
+      const cell = document.createElement('td');
+      const cellClass = `${category}-${difficulty}`.trim().replace(/\s/g, '_'); // class doesn't accept whitespaces
+      try {
+        cell.classList.add(cellClass);
+      } catch {
+        console.log(`The error is caused by string "${category}-${difficulty}"`);
+        throw new Error();
+      }
+      if (hasUnusedQuestions(category, diffDict[difficulty])) {
+        cell.innerHTML = `<button>${difficulty}</button>`;
+      } else {
+        cell.textContent = 'CLOSED';
+      }
+      row.appendChild(cell);
+    }
+    tableBody.appendChild(row);
+  }
+  table.appendChild(tableBody);
+
+   // Remove any existing table
+   const categoryTable = document.getElementById('category-table');
+   const existingTable = categoryTable.querySelector('table');
+   if (existingTable) {
+     existingTable.remove();
+   }
+
+  // Append table to category table div
+  categoryTable.appendChild(table);
+}
+
+function showCategoryTable() {
+  generateCategoryTable();
   document.getElementById("category-table").style.display = "block";
   registerTableButtons();
 }
@@ -69,17 +109,9 @@ function registerTableButtons() {
   // Loop through the buttons and add an event listener to each one
   buttons.forEach((button) => {
     button.addEventListener("click", () => {
-      const diffDict = {
-        100: 1,
-        200: 2,
-        300: 3,
-      };
-
       // Get the category and difficulty level from the class name of the button's parent cell
-      console.log(button.parentElement.className);
-      const [category, difficulty] = button.parentElement.className.split("-");
-      console.log(category);
-      console.log(diffDict[difficulty]);
+      let [category, difficulty] = button.parentElement.className.split("-");
+      category = category.replace('_', " ");
 
       // Check if there is a question available for the given category and difficulty level
       const question = generateQuestion(category, diffDict[difficulty]);
