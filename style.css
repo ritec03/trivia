@@ -168,10 +168,25 @@ body {
   
   .choice-item {
     border: 2px solid #333;
+    background-color: #b1b1b570;
+    color: #fff;
     padding: 10px;
     border-radius: 10px;
+    font-size: 24px;
   }
-  
-  
+
+  .choice-item:hover:not(.correct-choice, .incorrect-choice) {
+    background-color: #85858870;
+  }
+
+  .correct-choice {
+    background-color: #2fbf6b;
+  }
+
+  .incorrect-choice {
+    background-color: #ff0000;
+  }
+
+
   
   

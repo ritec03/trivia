@@ -125,14 +125,14 @@ function displayQuestion(question) {
       ${question.image ? `<img class="question-image" src="${question.image}">` : ''}
       ${question.choices ? `
           <ul class="choice-list">
-              <li class="choice-item">${question.choices[0]}</li>
-              <li class="choice-item">${question.choices[1]}</li>
-              <li class="choice-item">${question.choices[2]}</li>
-              <li class="choice-item">${question.choices[3]}</li>
+              <button class="choice-item" id="choice-1">${question.choices[0]}</button>
+              <button class="choice-item" id="choice-2">${question.choices[1]}</button>
+              <button class="choice-item" id="choice-3">${question.choices[2]}</button>
+              <button class="choice-item" id="choice-4">${question.choices[3]}</button>
           </ul>
       ` : ''}
       <div class="choice-button">
-        <button class="btn grey-btn" id="correct-button">Correct</button>
+        ${!question.choices ? `<button class="btn grey-btn" id="correct-button">Correct</button>` : ''}
         <button class="btn grey-btn" id="go-back-button">Back</button>
       </div>
       <div class="team-selection" style="display: none;">
@@ -142,6 +142,10 @@ function displayQuestion(question) {
       </div>
   </div>
   </div>`;
+
+  if (question.choices) {
+    addChoicesListeners(question);
+  }
 
 
   document.getElementById("category-table").style.display = "none";
@@ -153,31 +157,13 @@ function displayQuestion(question) {
   const teamSelect = document.querySelector("#team-select");
   const teamOkButton = document.querySelector("#team-ok-button");
 
+  
   // Add event listeners
-  correctButton.addEventListener("click", function (event) {
-    teamSelectionDiv.style.display = "block";
-
-    // Populate the team select dropdown with team names from local storage
-    let teamNames = getTeamNames();
-    console.log(`team names are ${teamNames}`);
-    for (const teamName of teamNames) {
-      if (
-        !Array.from(teamSelect.options).some((option) =>
-          option.value === teamName
-        )
-      ) {
-        let option = document.createElement("option");
-        option.value = teamName;
-        option.text = teamName;
-        teamSelect.add(option);
-      }
-    }
-    // create the None option
-    let noneOption = document.createElement("option");
-    noneOption.value = "None";
-    noneOption.text = "None";
-    teamSelect.add(noneOption);
-  });
+  if (!question.choices) {
+    correctButton.addEventListener("click", function (event) {
+      showQuestionScoring();
+    });
+  }
 
   goBackButton.addEventListener("click", function (event) {
     document.getElementById("category-table").style.display = "block";
@@ -229,6 +215,48 @@ function displayQuestion(question) {
     })
 
   });
+}
+
+function showQuestionScoring() {
+  const teamSelect = document.querySelector("#team-select");
+  const teamSelectionDiv = document.querySelector(".team-selection");
+  teamSelectionDiv.style.display = "block";
+    // Populate the team select dropdown with team names from local storage
+    let teamNames = getTeamNames();
+    for (const teamName of teamNames) {
+      if (
+        !Array.from(teamSelect.options).some((option) =>
+          option.value === teamName
+        )
+      ) {
+        let option = document.createElement("option");
+        option.value = teamName;
+        option.text = teamName;
+        teamSelect.add(option);
+      }
+    }
+    // create the None option
+    let noneOption = document.createElement("option");
+    noneOption.value = "None";
+    noneOption.text = "None";
+    teamSelect.add(noneOption);
+}
+
+function addChoicesListeners(question) {
+  const choiceButtons = document.querySelectorAll(".choice-item");
+  choiceButtons.forEach((button) => {
+    const handleClick = () => {
+      // if it is correct, turn green, if not, turn red.
+      if (button.textContent === question.answer) {
+        button.classList.add("correct-choice");
+        showQuestionScoring();
+      } else {
+        button.classList.add("incorrect-choice");
+      }
+      button.removeEventListener("click", handleClick);
+    }
+    button.addEventListener("click", handleClick);
+  })
 }
 
 function getTeamNames() {
