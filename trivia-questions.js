@@ -3,6 +3,7 @@ import {questions as allQuestions} from '/questions.js';
 
 const LS_USED_QUESTIONS = "used-questions";
 const LS_TRIVIA_SCORES = "trivia-scores";
+const QUESTION_TIME = 11;
 const diffDict = {
   100: 1,
   200: 2,
@@ -122,6 +123,7 @@ function displayQuestion(question) {
   <h1>The Category is: ${question.category}</h1>
   <div class="question-content">
       <h2>${question.question}</h2>
+      <div id="timer" style="display: none"></div>
       ${question.image ? `<img class="question-image" src="${question.image}">` : ''}
       ${question.choices ? `
           <ul class="choice-list">
@@ -156,6 +158,30 @@ function displayQuestion(question) {
   const teamSelectionDiv = document.querySelector(".team-selection");
   const teamSelect = document.querySelector("#team-select");
   const teamOkButton = document.querySelector("#team-ok-button");
+
+  // Display the timer
+  const timeLimit = QUESTION_TIME;
+  const timerDiv = document.getElementById("timer");
+  timerDiv.style.display = "block";
+  timerDiv.innerHTML = `<h2>Time remaining: <span id="time-remaining">${timeLimit}</span></h2>`;
+
+  // Start the timer
+  let timeRemaining = timeLimit;
+  let intervalId = setInterval(() => {
+    timeRemaining--;
+    let timerColor = "white";
+    if (timeRemaining <= 10 && timeRemaining > 5) {
+      timerColor = "red";
+    } else if (timeRemaining <= 5) {
+      timerDiv.classList.add("pulsate");
+      timerColor = "red";
+    }
+    timerDiv.innerHTML = `<h2>Time remaining: <span style="color: ${timerColor};" id="time-remaining">${timeRemaining}</span></h2>`;
+    if (timeRemaining === 0) {
+      clearInterval(intervalId);
+      timerDiv.innerHTML = "<h2>Time is UP!</h2>";
+    }
+  }, 1000);
 
   
   // Add event listeners
