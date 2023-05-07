@@ -125,10 +125,10 @@ function displayQuestion(question) {
       ${question.image ? `<img class="question-image" src="${question.image}">` : ''}
       ${question.choices ? `
           <ul class="choice-list">
-              <li class="choice-item">${question.choices[0]}</li>
-              <li class="choice-item">${question.choices[1]}</li>
-              <li class="choice-item">${question.choices[2]}</li>
-              <li class="choice-item">${question.choices[3]}</li>
+              <button class="choice-item" id="choice-1">${question.choices[0]}</button>
+              <button class="choice-item" id="choice-2">${question.choices[1]}</button>
+              <button class="choice-item" id="choice-3">${question.choices[2]}</button>
+              <button class="choice-item" id="choice-4">${question.choices[3]}</button>
           </ul>
       ` : ''}
       <div class="choice-button">
@@ -142,6 +142,10 @@ function displayQuestion(question) {
       </div>
   </div>
   </div>`;
+
+  if (question.choices) {
+    addChoicesListeners(question);
+  }
 
 
   document.getElementById("category-table").style.display = "none";
@@ -229,6 +233,23 @@ function displayQuestion(question) {
     })
 
   });
+}
+
+function addChoicesListeners(question) {
+  const choiceButtons = document.querySelectorAll(".choice-item");
+  choiceButtons.forEach((button) => {
+    const handleClick = () => {
+      // if it is correct, turn green, if not, turn red.
+      console.log(button.textContent, question.answer);
+      if (button.textContent === question.answer) {
+        button.classList.add("correct-choice");
+      } else {
+        button.classList.add("incorrect-choice");
+      }
+      button.removeEventListener("click", handleClick);
+    }
+    button.addEventListener("click", handleClick);
+  })
 }
 
 function getTeamNames() {
