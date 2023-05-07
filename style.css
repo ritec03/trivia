@@ -116,17 +116,19 @@ body {
 
   .question-content {
     background-color: #c17900;
+    height: 30rem;
     padding: 20px;
     margin: auto;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    overflow: hidden;
   }
 
   .question-image {
-    max-width: 80%;
-    max-height: 600px;
+    max-width: 90%;
+    max-height: 60%;
     border: 10px solid #ccc;
     padding: 5px;
     display: block;
