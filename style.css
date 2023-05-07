@@ -114,24 +114,26 @@ body {
     color: #ffab00;
   }
 
+  .question-frame {
+    display: flex;
+    flex-direction: column;
+  }
+
   .question-content {
+    display: flex;
+    flex-direction: column;
     background-color: #c17900;
-    height: 30rem;
+    max-height: 70rem;
+    flex: 0 10 auto;
     padding: 20px;
     margin: auto;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    overflow: hidden;
   }
 
   .question-image {
     max-width: 90%;
-    max-height: 60%;
+    max-height: 30rem;
     border: 10px solid #ccc;
     padding: 5px;
-    display: block;
     margin: 0 auto;
   }
 
