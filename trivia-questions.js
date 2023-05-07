@@ -132,7 +132,7 @@ function displayQuestion(question) {
           </ul>
       ` : ''}
       <div class="choice-button">
-        <button class="btn grey-btn" id="correct-button">Correct</button>
+        ${!question.choices ? `<button class="btn grey-btn" id="correct-button">Correct</button>` : ''}
         <button class="btn grey-btn" id="go-back-button">Back</button>
       </div>
       <div class="team-selection" style="display: none;">
@@ -157,31 +157,13 @@ function displayQuestion(question) {
   const teamSelect = document.querySelector("#team-select");
   const teamOkButton = document.querySelector("#team-ok-button");
 
+  
   // Add event listeners
-  correctButton.addEventListener("click", function (event) {
-    teamSelectionDiv.style.display = "block";
-
-    // Populate the team select dropdown with team names from local storage
-    let teamNames = getTeamNames();
-    console.log(`team names are ${teamNames}`);
-    for (const teamName of teamNames) {
-      if (
-        !Array.from(teamSelect.options).some((option) =>
-          option.value === teamName
-        )
-      ) {
-        let option = document.createElement("option");
-        option.value = teamName;
-        option.text = teamName;
-        teamSelect.add(option);
-      }
-    }
-    // create the None option
-    let noneOption = document.createElement("option");
-    noneOption.value = "None";
-    noneOption.text = "None";
-    teamSelect.add(noneOption);
-  });
+  if (!question.choices) {
+    correctButton.addEventListener("click", function (event) {
+      showQuestionScoring();
+    });
+  }
 
   goBackButton.addEventListener("click", function (event) {
     document.getElementById("category-table").style.display = "block";
@@ -235,14 +217,39 @@ function displayQuestion(question) {
   });
 }
 
+function showQuestionScoring() {
+  const teamSelect = document.querySelector("#team-select");
+  const teamSelectionDiv = document.querySelector(".team-selection");
+  teamSelectionDiv.style.display = "block";
+    // Populate the team select dropdown with team names from local storage
+    let teamNames = getTeamNames();
+    for (const teamName of teamNames) {
+      if (
+        !Array.from(teamSelect.options).some((option) =>
+          option.value === teamName
+        )
+      ) {
+        let option = document.createElement("option");
+        option.value = teamName;
+        option.text = teamName;
+        teamSelect.add(option);
+      }
+    }
+    // create the None option
+    let noneOption = document.createElement("option");
+    noneOption.value = "None";
+    noneOption.text = "None";
+    teamSelect.add(noneOption);
+}
+
 function addChoicesListeners(question) {
   const choiceButtons = document.querySelectorAll(".choice-item");
   choiceButtons.forEach((button) => {
     const handleClick = () => {
       // if it is correct, turn green, if not, turn red.
-      console.log(button.textContent, question.answer);
       if (button.textContent === question.answer) {
         button.classList.add("correct-choice");
+        showQuestionScoring();
       } else {
         button.classList.add("incorrect-choice");
       }
