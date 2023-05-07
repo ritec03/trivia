@@ -24,8 +24,8 @@ body {
     display: inline-block;
     background-color: #f9a825;
     color: #fff;
-    padding: 12px 24px;
-    border-radius: 30px;
+    padding: 1rem 2rem;
+    border-radius: 2rem;
     font-size: 24px;
     text-decoration: none;
     transition: background-color 0.3s ease;
@@ -34,7 +34,41 @@ body {
   .btn:hover {
     background-color: #c17900;
   }
+
+  .choice-button {
+    display: flex;
+    justify-content: center;
+    margin: 1rem;
+  }
   
+  .choice-button button {
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+
+  #correct-button {
+    background-color: #2fbf6b;
+  }
+
+  #correct-button:hover {
+    background-color: #1c713f;
+  }
+
+  #team-ok-button {
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    font-size: 12px;
+  }
+
+  .grey-btn {
+    background-color: #83839b;
+  }
+
+  .grey-btn:hover {
+    background-color: #494956;
+  }
+
   table {
     margin: 50px auto;
     border-collapse: collapse;
@@ -80,30 +114,26 @@ body {
     color: #ffab00;
   }
 
-  .question-content {
-    background-color: #c17900;
-    padding: 20px;
-    margin: auto;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  .question-frame {
+    display: flex;
+    flex-direction: column;
   }
 
-  .choice-button {
+  .question-content {
     display: flex;
-    justify-content: center;
-  }
-  
-  .choice-button button {
-    margin: 0 10px;
+    flex-direction: column;
+    background-color: #c17900;
+    max-height: 70rem;
+    flex: 0 10 auto;
+    padding: 20px;
+    margin: auto;
   }
 
   .question-image {
-    max-width: 80%;
+    max-width: 90%;
+    max-height: 30rem;
     border: 10px solid #ccc;
     padding: 5px;
-    display: block;
     margin: 0 auto;
   }
 
