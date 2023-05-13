@@ -188,12 +188,16 @@ function generateHorizontalScoreTable(teamScores) {
     return teamScores[b] - teamScores[a];
   });
 
+  
   // Generate a row for each team with its score
   let scoreTable = document.getElementById('scoreboard');
   let tableBody = scoreTable.querySelector('tbody');
   let teamNameRow = document.createElement('tr');
   let teamScoreRow = document.createElement('tr');
-
+  
+  // Remove existing rows from the table
+  tableBody.innerHTML = '';
+  
   let teamNameHeader = document.createElement('th');
   teamNameHeader.innerHTML = 'Team Name';
   let teamScoreHeader = document.createElement('th');
