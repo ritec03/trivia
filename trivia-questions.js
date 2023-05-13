@@ -158,8 +158,62 @@ function createTableCell(category, difficulty) {
  */
 function showCategoryTable() {
   generateCategoryTable();
+  const scores = getTeamScores();
+  generateHorizontalScoreTable(scores);
   document.getElementById("category-table").style.display = "block";
   registerTableButtons();
+}
+
+function getTeamScores() {
+  // Get the scores from local storage
+  let scores = JSON.parse(localStorage.getItem('trivia-scores') || '[]');
+
+  // Calculate the total score for each team
+  let teamScores = {};
+  for (let i = 0; i < scores.length; i++) {
+    let teamName = scores[i].team_name;
+    let questionScore = scores[i].score;
+    if (teamScores[teamName]) {
+      teamScores[teamName] += questionScore;
+    } else {
+      teamScores[teamName] = questionScore;
+    }
+  }
+
+  return teamScores;
+}
+
+function generateHorizontalScoreTable(teamScores) {
+  let sortedTeams = Object.keys(teamScores).sort(function(a, b) {
+    return teamScores[b] - teamScores[a];
+  });
+
+  // Generate a row for each team with its score
+  let scoreTable = document.getElementById('scoreboard');
+  let tableBody = scoreTable.querySelector('tbody');
+  let teamNameRow = document.createElement('tr');
+  let teamScoreRow = document.createElement('tr');
+
+  let teamNameHeader = document.createElement('th');
+  teamNameHeader.innerHTML = 'Team Name';
+  let teamScoreHeader = document.createElement('th');
+  teamScoreHeader.innerHTML = 'Score';
+  teamNameRow.appendChild(teamNameHeader);
+  teamScoreRow.appendChild(teamScoreHeader);
+
+  for (let i = 0; i < sortedTeams.length; i++) {
+    let teamName = sortedTeams[i];
+    let teamNameCell = document.createElement('td');
+    teamNameCell.innerHTML = teamName;
+    teamNameRow.appendChild(teamNameCell);
+
+    let teamScoreCell = document.createElement('td');
+    teamScoreCell.innerHTML = teamScores[teamName];
+    teamScoreRow.appendChild(teamScoreCell);
+  }
+  console.log(scoreTable);
+  tableBody.appendChild(teamNameRow);
+  tableBody.appendChild(teamScoreRow);
 }
 
 /**
