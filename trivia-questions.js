@@ -180,6 +180,9 @@ function getTeamScores() {
     }
   }
 
+  // remvoe scores for "None"
+  delete teamScores["None"];
+
   return teamScores;
 }
 
@@ -188,7 +191,9 @@ function generateHorizontalScoreTable(teamScores) {
     return teamScores[b] - teamScores[a];
   });
 
-  
+  const lastScoredTeam = getLastScoredTeam();
+  let lastScoredTeamDiv;
+
   // Generate a row for each team with its score
   let scoreTable = document.getElementById('scoreboard');
   let tableBody = scoreTable.querySelector('tbody');
@@ -197,7 +202,7 @@ function generateHorizontalScoreTable(teamScores) {
   
   // Remove existing rows from the table
   tableBody.innerHTML = '';
-  
+
   let teamNameHeader = document.createElement('th');
   teamNameHeader.innerHTML = 'Team Name';
   let teamScoreHeader = document.createElement('th');
@@ -212,12 +217,38 @@ function generateHorizontalScoreTable(teamScores) {
     teamNameRow.appendChild(teamNameCell);
 
     let teamScoreCell = document.createElement('td');
-    teamScoreCell.innerHTML = teamScores[teamName];
+    teamScoreCell.innerHTML = `<span>${teamScores[teamName]}</span>`;
     teamScoreRow.appendChild(teamScoreCell);
+
+    if (lastScoredTeam === teamName) {
+      lastScoredTeamDiv = teamScoreCell;
+    }
   }
   console.log(scoreTable);
   tableBody.appendChild(teamNameRow);
   tableBody.appendChild(teamScoreRow);
+  makeLastScorerPuslate(lastScoredTeamDiv);
+  scoreTable.style.display = "block";
+}
+
+function makeLastScorerPuslate(lastScoredTeamDiv) {
+  let timeRemaining = 4;
+
+  let intervalId = setInterval(() => {
+    timeRemaining--;
+    lastScoredTeamDiv.querySelector("span").classList.add("pulsate");
+
+    if (timeRemaining === 0) {
+      clearInterval(intervalId);
+      lastScoredTeamDiv.querySelector("span").classList.remove("pulsate");
+    }
+  }, 1000);
+}
+
+function getLastScoredTeam() {
+  let scores = JSON.parse(localStorage.getItem(LS_TRIVIA_SCORES) || "[]");
+  const lastScore = scores.pop();
+  return lastScore.team_name;
 }
 
 /**
@@ -320,6 +351,7 @@ function displayQuestion(question) {
   }
 
   document.getElementById("category-table").style.display = "none";
+  document.getElementById("scoreboard").style.display = "none";
   questionDiv.style.display = "block";
   startTimer(QUESTION_TIME);
 
@@ -337,15 +369,14 @@ function displayQuestion(question) {
 
   goBackButton.addEventListener("click", function (event) {
     document.getElementById("category-table").style.display = "block";
+    document.getElementById("scoreboard").style.display = "block";
     questionDiv.style.display = "none";
   });
 
   // Add event listener for the OK button in the team selection dropdown
   // this will add the score
   teamOkButton.addEventListener("click", function (event) {
-    if (teamSelect.value !== "None") {
-      addScoreToLocalStorage(question, teamSelect.value);
-    }
+    addScoreToLocalStorage(question, teamSelect.value);
     // Add the question id to the used questions list and store it in local storage
     updateUsedQuestionsList(question);
     hideQuestion();
@@ -491,7 +522,7 @@ function getTeamNames() {
       teamNames.push(teamName);
     }
   }
-  return teamNames;
+  return teamNames.filter((teamName) => teamName !== "None");
 }
 
 showCategoryTable();
