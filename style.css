@@ -204,5 +204,11 @@ body {
     display: inline-block;
   }
 
+  td .pulsate {
+    animation: pulsate 0.8s ease-out infinite;
+    display: inline-block;
+    color: #31dd39;
+  }
+
   
   
