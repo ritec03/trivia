@@ -1,42 +1,6 @@
-import { showCategoryTable } from './trivia-questions.js';
+import { LS_USED_QUESTIONS, LS_TRIVIA_SCORES } from './constants.js';
 
 const QUESTION_TIME = 11; // time allocated per question
-
-// The key used to store the list of used questions in the local storage.
-// This key is used to retrieve and store the list of questions that have been already used.
-/* Example of the structure found at the "used-questions" local storage slot:
-[
-  "questionId1",
-  "questionId2",
-  "questionId3"
-]
-*/
-export const LS_USED_QUESTIONS = 'used-questions';
-
-// The key used to store the trivia scores in the local storage.
-// This key is used to retrieve and store the scores awarded for each question.
-// The scores are stored as an array of objects, where each object represents
-// a score and includes properties like question_id, team_name, and score.
-/* Example of the structure found at the "trivia-scores" local storage slot:
-[
-  {
-    question_id: "questionId1",
-    team_name: "Team A",
-    score: 200
-  },
-  {
-    question_id: "questionId2",
-    team_name: "Team B",
-    score: 100
-  },
-  {
-    question_id: "questionId3",
-    team_name: "Team A",
-    score: 300
-  }
-]
-*/
-export const LS_TRIVIA_SCORES = 'trivia-scores';
 
 /**
  * Generates the markup for displaying the question.
@@ -220,8 +184,10 @@ function hideQuestion() {
 /**
  * Displays the answer div with the answer for the given question.
  * @param {object} question - The question object.
+ * @param {function} goBackCallback - Callback to return from the question
+ * to the main table
  */
-function showAnswerDiv(question) {
+function showAnswerDiv(question, goBackCallback) {
   const answerDiv = document.getElementById('answer');
   answerDiv.innerHTML = `
       <div class="answer-frame">
@@ -237,15 +203,17 @@ function showAnswerDiv(question) {
   const continueButton = document.querySelector('.continue-button');
   continueButton.addEventListener('click', () => {
     answerDiv.style.display = 'none';
-    showCategoryTable();
+    goBackCallback();
   });
 }
 
 /**
  * Displays the question and handles user interactions for answering the question.
  * @param {Object} question - The question object to display.
+ * @param {function} goBackCallback - Callback to return from the question
+ * to the main table
  */
-export function displayQuestion(question) {
+export default function displayQuestion(question, goBackCallback) {
   // Show the question and hide the table
   const questionDiv = document.getElementById('question');
   questionDiv.innerHTML = generateQuestionMarkup(question);
@@ -285,6 +253,6 @@ export function displayQuestion(question) {
     updateUsedQuestionsList(question);
     hideQuestion();
     // Show the answer and hide the question
-    showAnswerDiv(question);
+    showAnswerDiv(question, goBackCallback);
   });
 }

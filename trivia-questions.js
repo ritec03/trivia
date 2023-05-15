@@ -1,5 +1,6 @@
 import { questions as allQuestions } from './questions.js';
-import { LS_USED_QUESTIONS, LS_TRIVIA_SCORES, displayQuestion } from './display-question.js';
+import { LS_USED_QUESTIONS, LS_TRIVIA_SCORES } from './constants.js';
+import displayQuestion from './display-question.js';
 
 // // Get references to relevant elements in the HTML document
 
@@ -79,7 +80,7 @@ function createTableCell(category, difficulty) {
 /**
  * Generates the category table dynamically based on the available categories and difficulty levels.
  */
-function generateCategoryTable() {
+export function generateCategoryTable() {
   const categories = new Set(allQuestions.map((q) => q.category));
   const table = document.createElement('table');
   table.id = 'table';
@@ -118,7 +119,7 @@ function generateCategoryTable() {
   categoryTable.appendChild(table);
 }
 
-function getTeamScores() {
+export function getTeamScores() {
   // Get the scores from local storage
   const scores = JSON.parse(localStorage.getItem('trivia-scores') || '[]');
 
@@ -160,7 +161,7 @@ function makeLastScorerPuslate(lastScoredTeamDiv) {
   }, 1000);
 }
 
-function generateHorizontalScoreTable(teamScores) {
+export function generateHorizontalScoreTable(teamScores) {
   const sortedTeams = Object.keys(teamScores).sort((a, b) => teamScores[b] - teamScores[a]);
 
   const lastScoredTeam = getLastScoredTeam();
@@ -207,7 +208,7 @@ function generateHorizontalScoreTable(teamScores) {
  * Each registered event listener generates and displays a question
  * based on the selected category and difficulty.
  */
-function registerTableButtons() {
+export function registerTableButtons() {
   const buttons = document.querySelectorAll('td button');
   buttons.forEach((button) => {
     button.addEventListener('click', () => {
@@ -215,7 +216,8 @@ function registerTableButtons() {
       const categoryUnderscore = category.replace('_', ' ');
       const question = generateQuestion(categoryUnderscore, diffDict[difficulty]);
       if (question) {
-        displayQuestion(question);
+        // eslint-disable-next-line no-use-before-define
+        displayQuestion(question, showCategoryTable);
       } else {
         alert(`No questions available for ${categoryUnderscore} - ${difficulty}`);
       }
@@ -226,7 +228,7 @@ function registerTableButtons() {
 /**
  * Displays the category table and handles the button actions.
  */
-export function showCategoryTable() {
+export default function showCategoryTable() {
   generateCategoryTable();
   const scores = getTeamScores();
   generateHorizontalScoreTable(scores);
