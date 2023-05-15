@@ -1,4 +1,4 @@
-import { LS_USED_QUESTIONS, LS_TRIVIA_SCORES, LS_CURRENT_QUESTION } from './constants.js';
+import { LS_USED_QUESTIONS, LS_TRIVIA_SCORES, LS_CURRENT_QUESTION } from './state-constants.js';
 
 /**
  * Retrieves the team names from the trivia scores in local storage.

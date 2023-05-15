@@ -1,4 +1,4 @@
-import { LS_CURRENT_QUESTION } from './constants.js';
+import { LS_CURRENT_QUESTION } from './state-constants.js';
 import showCategoryTable from './trivia-table-ui.js';
 import { questions as allQuestions } from './questions.js';
 import { displayQuestion, showAnswerDiv } from './question-ui.js';

@@ -1,4 +1,4 @@
-import { LS_USED_QUESTIONS, LS_TRIVIA_SCORES } from './constants.js';
+import { LS_USED_QUESTIONS, LS_TRIVIA_SCORES } from './state-constants.js';
 import { questions as allQuestions } from './questions.js';
 
 /**
