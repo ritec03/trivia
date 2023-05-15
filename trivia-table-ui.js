@@ -1,6 +1,7 @@
-import { questions as allQuestions } from './questions.js';
-import { LS_USED_QUESTIONS, LS_TRIVIA_SCORES } from './constants.js';
-import displayQuestion from './display-question.js';
+import displayQuestion from './question-ui.js';
+import {
+  hasUnusedQuestions, generateQuestion, getTeamScores, getLastScoredTeam, getCategories,
+} from './trivia-table-logic.js';
 
 // // Get references to relevant elements in the HTML document
 
@@ -10,53 +11,6 @@ const diffDict = {
   200: 2,
   300: 3,
 };
-
-/**
- * Generates a question from the given category and difficulty level.
- *
- * @param {string} category - The category of the question.
- * @param {number} difficulty - The difficulty level of the question.
- * @returns {Object|null} The generated question object, or null if no more unused
- * questions are available.
- */
-function generateQuestion(category, difficulty) {
-  // Retrieve the list of questions that have not been used yet from local storage
-  const usedQuestions = JSON.parse(localStorage.getItem(LS_USED_QUESTIONS))
-    || [];
-  const questions = allQuestions.filter((q) => (
-    q.category.trim() === category && q.difficulty === difficulty
-    && !usedQuestions.includes(q.id)
-  ));
-
-  // If there are no more unused questions matching the category and difficulty, return null
-  if (questions.length === 0) {
-    return null;
-  }
-
-  //   // Pick a random question from the list of matching questions
-  //   const randomIndex = Math.floor(Math.random() * questions.length);
-  const selectedQuestion = questions[0];
-  return selectedQuestion;
-}
-
-/**
- * Checks if there are any unused questions left for the given category and difficulty level.
- *
- * @param {string} category - The category to check.
- * @param {number} difficulty - The difficulty level to check.
- * @returns {boolean} Returns true if there are unused questions matching the category
- * and difficulty, otherwise false.
- */
-function hasUnusedQuestions(category, difficulty) {
-  // Retrieve the list of questions that have not been used yet from local storage
-  const usedQuestions = JSON.parse(localStorage.getItem(LS_USED_QUESTIONS)) || [];
-  const questions = allQuestions.filter((q) => (
-    q.category.trim() === category && q.difficulty === difficulty
-    && !usedQuestions.includes(q.id)
-  ));
-  // If there are no more unused questions matching the category and difficulty, return false
-  return questions.length > 0;
-}
 
 /**
  * Creates a table cell element for the given category and difficulty.
@@ -81,7 +35,7 @@ function createTableCell(category, difficulty) {
  * Generates the category table dynamically based on the available categories and difficulty levels.
  */
 export function generateCategoryTable() {
-  const categories = new Set(allQuestions.map((q) => q.category));
+  const categories = getCategories();
   const table = document.createElement('table');
   table.id = 'table';
 
@@ -119,34 +73,6 @@ export function generateCategoryTable() {
   categoryTable.appendChild(table);
 }
 
-export function getTeamScores() {
-  // Get the scores from local storage
-  const scores = JSON.parse(localStorage.getItem('trivia-scores') || '[]');
-
-  // Calculate the total score for each team
-  const teamScores = {};
-  for (let i = 0; i < scores.length; i += 1) {
-    const teamName = scores[i].team_name;
-    const questionScore = scores[i].score;
-    if (teamScores[teamName]) {
-      teamScores[teamName] += questionScore;
-    } else {
-      teamScores[teamName] = questionScore;
-    }
-  }
-
-  // remvoe scores for "None"
-  delete teamScores.None;
-
-  return teamScores;
-}
-
-function getLastScoredTeam() {
-  const scores = JSON.parse(localStorage.getItem(LS_TRIVIA_SCORES) || '[]');
-  const lastScore = scores.pop();
-  return lastScore.team_name;
-}
-
 function makeLastScorerPuslate(lastScoredTeamDiv) {
   let timeRemaining = 4;
 
@@ -161,7 +87,7 @@ function makeLastScorerPuslate(lastScoredTeamDiv) {
   }, 1000);
 }
 
-export function generateHorizontalScoreTable(teamScores) {
+function generateHorizontalScoreTable(teamScores) {
   const sortedTeams = Object.keys(teamScores).sort((a, b) => teamScores[b] - teamScores[a]);
 
   const lastScoredTeam = getLastScoredTeam();
@@ -208,7 +134,7 @@ export function generateHorizontalScoreTable(teamScores) {
  * Each registered event listener generates and displays a question
  * based on the selected category and difficulty.
  */
-export function registerTableButtons() {
+function registerTableButtons() {
   const buttons = document.querySelectorAll('td button');
   buttons.forEach((button) => {
     button.addEventListener('click', () => {
