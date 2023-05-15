@@ -1,4 +1,4 @@
-import { LS_USED_QUESTIONS, LS_TRIVIA_SCORES } from './constants.js';
+import { LS_USED_QUESTIONS, LS_TRIVIA_SCORES, LS_CURRENT_QUESTION } from './constants.js';
 
 /**
  * Retrieves the team names from the trivia scores in local storage.
@@ -44,4 +44,18 @@ export function updateUsedQuestionsList(question) {
   const usedQuestions = JSON.parse(localStorage.getItem(LS_USED_QUESTIONS) || '[]');
   usedQuestions.push(question.id);
   localStorage.setItem(LS_USED_QUESTIONS, JSON.stringify(usedQuestions));
+}
+
+export function updateState(questionId, stage) {
+  if (questionId === null) {
+    localStorage.setItem(LS_CURRENT_QUESTION, JSON.stringify({
+      question_id: null,
+      stage: 'none',
+    }));
+  } else {
+    localStorage.setItem(LS_CURRENT_QUESTION, JSON.stringify({
+      question_id: questionId,
+      stage,
+    }));
+  }
 }

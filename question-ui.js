@@ -1,4 +1,6 @@
-import { getTeamNames, addScoreToLocalStorage, updateUsedQuestionsList } from './question-logic.js';
+import {
+  getTeamNames, addScoreToLocalStorage, updateUsedQuestionsList, updateState,
+} from './question-logic.js';
 
 const QUESTION_TIME = 11; // time allocated per question
 
@@ -141,7 +143,7 @@ function hideQuestion() {
  * @param {function} goBackCallback - Callback to return from the question
  * to the main table
  */
-function showAnswerDiv(question, goBackCallback) {
+export function showAnswerDiv(question, goBackCallback) {
   const answerDiv = document.getElementById('answer');
   answerDiv.innerHTML = `
       <div class="answer-frame">
@@ -156,6 +158,7 @@ function showAnswerDiv(question, goBackCallback) {
 
   const continueButton = document.querySelector('.continue-button');
   continueButton.addEventListener('click', () => {
+    updateState(null, 'none');
     answerDiv.style.display = 'none';
     goBackCallback();
   });
@@ -167,7 +170,7 @@ function showAnswerDiv(question, goBackCallback) {
  * @param {function} goBackCallback - Callback to return from the question
  * to the main table
  */
-export default function displayQuestion(question, goBackCallback) {
+export function displayQuestion(question, goBackCallback) {
   // Show the question and hide the table
   const questionDiv = document.getElementById('question');
   questionDiv.innerHTML = generateQuestionMarkup(question);
@@ -194,8 +197,8 @@ export default function displayQuestion(question, goBackCallback) {
   }
 
   goBackButton.addEventListener('click', () => {
-    document.getElementById('category-table').style.display = 'block';
-    document.getElementById('scoreboard').style.display = 'block';
+    updateState(null, 'none');
+    goBackCallback();
     questionDiv.style.display = 'none';
   });
 
@@ -205,8 +208,9 @@ export default function displayQuestion(question, goBackCallback) {
     addScoreToLocalStorage(question, teamSelect.value);
     // Add the question id to the used questions list and store it in local storage
     updateUsedQuestionsList(question);
-    hideQuestion();
     // Show the answer and hide the question
+    updateState(question.id, 'answer');
+    hideQuestion();
     showAnswerDiv(question, goBackCallback);
   });
 }

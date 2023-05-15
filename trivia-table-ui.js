@@ -1,7 +1,10 @@
-import displayQuestion from './question-ui.js';
+import { displayQuestion } from './question-ui.js';
 import {
   hasUnusedQuestions, generateQuestion, getTeamScores, getLastScoredTeam, getCategories,
 } from './trivia-table-logic.js';
+import {
+  updateState,
+} from './question-logic.js';
 
 // // Get references to relevant elements in the HTML document
 
@@ -142,6 +145,7 @@ function registerTableButtons() {
       const categoryUnderscore = category.replace('_', ' ');
       const question = generateQuestion(categoryUnderscore, diffDict[difficulty]);
       if (question) {
+        updateState(question.id, 'question');
         // eslint-disable-next-line no-use-before-define
         displayQuestion(question, showCategoryTable);
       } else {
@@ -161,5 +165,3 @@ export default function showCategoryTable() {
   document.getElementById('category-table').style.display = 'block';
   registerTableButtons();
 }
-
-showCategoryTable();

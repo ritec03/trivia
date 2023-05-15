@@ -33,3 +33,28 @@ export const LS_USED_QUESTIONS = 'used-questions';
 ]
 */
 export const LS_TRIVIA_SCORES = 'trivia-scores';
+
+/*
+This key is used to store the information about the current quesiton,
+including the question id.
+Example of the structure found at the "current-question" local storage slot:
+{
+  question_id: "questionId1",
+  stage: "question" || "scoring" || "answer"
+} || null ||
+*/
+export const LS_CURRENT_QUESTION = 'current-question';
+
+/*
+States for the program:
+1. at the category table
+2. at a question before hitting correct button
+3. at a question after hitting the correct button
+3. at a question answer (which happens only after the score assignment)
+
+CatTab -> ClCat -> Question -> ClCor -> QuestionScoring -> ClScore -> Answer
+| |                   |                        |                       |
+|  <----- ClBack <------                       |                       |
+|  <------------------------- ClBack <---------                        |
+|                                                  CatTabNext <- ClOk <-
+*/
