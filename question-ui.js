@@ -178,9 +178,6 @@ export function displayQuestion(question, goBackCallback) {
   if (question.choices) {
     addChoicesListeners(question);
   }
-
-  document.getElementById('category-table').style.display = 'none';
-  document.getElementById('scoreboard').style.display = 'none';
   questionDiv.style.display = 'block';
   startTimer(QUESTION_TIME);
 

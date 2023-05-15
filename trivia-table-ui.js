@@ -74,6 +74,7 @@ export function generateCategoryTable() {
 
   // Append table to category table div
   categoryTable.appendChild(table);
+  document.getElementById('category-table').style.display = 'block';
 }
 
 function makeLastScorerPuslate(lastScoredTeamDiv) {
@@ -146,6 +147,8 @@ function registerTableButtons() {
       const question = generateQuestion(categoryUnderscore, diffDict[difficulty]);
       if (question) {
         updateState(question.id, 'question');
+        document.getElementById('category-table').style.display = 'none';
+        document.getElementById('scoreboard').style.display = 'none';
         // eslint-disable-next-line no-use-before-define
         displayQuestion(question, showCategoryTable);
       } else {
@@ -162,6 +165,5 @@ export default function showCategoryTable() {
   generateCategoryTable();
   const scores = getTeamScores();
   generateHorizontalScoreTable(scores);
-  document.getElementById('category-table').style.display = 'block';
   registerTableButtons();
 }
