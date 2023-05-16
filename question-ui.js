@@ -1,42 +1,12 @@
-import { showCategoryTable } from './trivia-questions.js';
+import {
+  getTeamNames, addScoreToLocalStorage, updateUsedQuestionsList, updateState,
+  updateClickedChoiceList,
+  getClickedChoiceList,
+  calculateRemainingSeconds,
+  getQuestionTimestamp,
+} from './question-logic.js';
 
 const QUESTION_TIME = 11; // time allocated per question
-
-// The key used to store the list of used questions in the local storage.
-// This key is used to retrieve and store the list of questions that have been already used.
-/* Example of the structure found at the "used-questions" local storage slot:
-[
-  "questionId1",
-  "questionId2",
-  "questionId3"
-]
-*/
-export const LS_USED_QUESTIONS = 'used-questions';
-
-// The key used to store the trivia scores in the local storage.
-// This key is used to retrieve and store the scores awarded for each question.
-// The scores are stored as an array of objects, where each object represents
-// a score and includes properties like question_id, team_name, and score.
-/* Example of the structure found at the "trivia-scores" local storage slot:
-[
-  {
-    question_id: "questionId1",
-    team_name: "Team A",
-    score: 200
-  },
-  {
-    question_id: "questionId2",
-    team_name: "Team B",
-    score: 100
-  },
-  {
-    question_id: "questionId3",
-    team_name: "Team A",
-    score: 300
-  }
-]
-*/
-export const LS_TRIVIA_SCORES = 'trivia-scores';
 
 /**
  * Generates the markup for displaying the question.
@@ -45,17 +15,17 @@ export const LS_TRIVIA_SCORES = 'trivia-scores';
  */
 function generateQuestionMarkup(question) {
   const markup = `<div class="question-frame">
-    <h1>The Category is: ${question.category}</h1>
+    <h1>The Category is: ${question.category}</h1> 
     <div class="question-content">
         <h2>${question.question}</h2>
         <div id="timer" style="display: none"></div>
         ${question.image ? `<img class="question-image" src="${question.image}">` : ''}
         ${question.choices ? `
             <ul class="choice-list">
-                <button class="choice-item" id="choice-1">${question.choices[0]}</button>
-                <button class="choice-item" id="choice-2">${question.choices[1]}</button>
-                <button class="choice-item" id="choice-3">${question.choices[2]}</button>
-                <button class="choice-item" id="choice-4">${question.choices[3]}</button>
+                <button class="choice-item" id="choice-0">${question.choices[0]}</button>
+                <button class="choice-item" id="choice-1">${question.choices[1]}</button>
+                <button class="choice-item" id="choice-2">${question.choices[2]}</button>
+                <button class="choice-item" id="choice-3">${question.choices[3]}</button>
             </ul>
         ` : ''}
         <div class="choice-button">
@@ -73,32 +43,46 @@ function generateQuestionMarkup(question) {
   return markup;
 }
 
+function setTimerFontColor(timeRemaining) {
+  let timeColor;
+  if (timeRemaining <= 10 && timeRemaining > 5) {
+    timeColor = 'red';
+  } else if (timeRemaining <= 5 && timeRemaining > 0) {
+    timeColor = 'red';
+  } else {
+    timeColor = 'white';
+  }
+  return timeColor;
+}
+
+function generateTimerDiv(timeRemaining) {
+  const timerDiv = document.getElementById('timer');
+  const timerColor = setTimerFontColor(timeRemaining);
+  if (timeRemaining > 0) {
+    timerDiv.innerHTML = `<h2>Time remaining: <span style="color: ${timerColor};" id="time-remaining">${timeRemaining}</span></h2>`;
+    if (timeRemaining <= 5 && timeRemaining > 0) {
+      timerDiv.classList.add('pulsate');
+    }
+  } else {
+    timerDiv.innerHTML = '<h2>Time is UP!</h2>';
+  }
+  timerDiv.style.display = 'block';
+}
+
 /**
  * Starts the timer with the given time limit.
  * @param {number} timeLimit - The time limit for the timer.
  */
-function startTimer(timeLimit) {
-  // Display the timer
-  const timerDiv = document.getElementById('timer');
-  timerDiv.style.display = 'block';
-  let timerColor = 'white';
-  timerDiv.innerHTML = `<h2>Time remaining: <span style="color: ${timerColor};" id="time-remaining">${timeLimit}</span></h2>`;
 
-  // Start the timer
-  let timeRemaining = timeLimit;
+function startTimer(initialTimestamp, timeLimitSeconds) {
+  let timeRemaining = calculateRemainingSeconds(initialTimestamp, timeLimitSeconds);
+  generateTimerDiv(timeRemaining);
+
   const intervalId = setInterval(() => {
     timeRemaining -= 1;
-    timerColor = 'white';
-    if (timeRemaining <= 10 && timeRemaining > 5) {
-      timerColor = 'red';
-    } else if (timeRemaining <= 5) {
-      timerDiv.classList.add('pulsate');
-      timerColor = 'red';
-    }
-    timerDiv.innerHTML = `<h2>Time remaining: <span style="color: ${timerColor};" id="time-remaining">${timeRemaining}</span></h2>`;
-    if (timeRemaining === 0) {
+    generateTimerDiv(timeRemaining);
+    if (timeRemaining <= 0) {
       clearInterval(intervalId);
-      timerDiv.innerHTML = '<h2>Time is UP!</h2>';
     }
   }, 1000);
 }
@@ -128,26 +112,6 @@ function populateTeamSelect(teamNames) {
 }
 
 /**
- * Retrieves the team names from the trivia scores in local storage.
- *
- * @returns {string[]} An array of team names.
- */
-function getTeamNames() {
-  const scores = JSON.parse(
-    localStorage.getItem('trivia-scores') || '{}',
-  );
-
-  const teamNames = [];
-  for (let i = 0; i < scores.length; i += 1) {
-    const teamName = scores[i].team_name;
-    if (!teamNames.includes(teamName)) {
-      teamNames.push(teamName);
-    }
-  }
-  return teamNames.filter((teamName) => teamName !== 'None');
-}
-
-/**
  * Displays the question scoring section.
  */
 function showQuestionScoring() {
@@ -168,9 +132,12 @@ function addChoicesListeners(question) {
   const choiceButtons = document.querySelectorAll('.choice-item');
   choiceButtons.forEach((button) => {
     const handleClick = () => {
+      updateClickedChoiceList(button.id.split('-')[1]);
+      console.log(`Adding the following index ${button.id.split('-')[1]}`);
       // if it is correct, turn green, if not, turn red.
       if (button.textContent === question.answer) {
         button.classList.add('correct-choice');
+        updateState(question.id, 'scoring');
         showQuestionScoring();
       } else {
         button.classList.add('incorrect-choice');
@@ -181,30 +148,19 @@ function addChoicesListeners(question) {
   });
 }
 
-/**
- * Adds the score for the question and team name to the local storage.
- * @param {object} question - The question object.
- * @param {string} teamName - The name of the team.
- */
-function addScoreToLocalStorage(question, teamName) {
-  const scores = JSON.parse(localStorage.getItem(LS_TRIVIA_SCORES) || '[]');
-  const score = {
-    question_id: question.id,
-    team_name: teamName,
-    score: question.difficulty * 100,
-  };
-  scores.push(score);
-  localStorage.setItem(LS_TRIVIA_SCORES, JSON.stringify(scores));
-}
-
-/**
- * Updates the used questions list in the local storage with the given question ID.
- * @param {object} question - The question object.
- */
-function updateUsedQuestionsList(question) {
-  const usedQuestions = JSON.parse(localStorage.getItem(LS_USED_QUESTIONS) || '[]');
-  usedQuestions.push(question.id);
-  localStorage.setItem(LS_USED_QUESTIONS, JSON.stringify(usedQuestions));
+function displaySelectedChoices(question) {
+  const choiceList = getClickedChoiceList();
+  if (!choiceList) {
+    return;
+  }
+  const choiceButtons = document.querySelectorAll('.choice-item');
+  choiceButtons.forEach((button) => {
+    if (button.textContent === question.answer && choiceList.includes(button.id.split('-')[1])) {
+      button.classList.add('correct-choice');
+    } else if (button.textContent !== question.answer && choiceList.includes(button.id.split('-')[1])) {
+      button.classList.add('incorrect-choice');
+    }
+  });
 }
 
 /**
@@ -220,8 +176,10 @@ function hideQuestion() {
 /**
  * Displays the answer div with the answer for the given question.
  * @param {object} question - The question object.
+ * @param {function} goBackCallback - Callback to return from the question
+ * to the main table
  */
-function showAnswerDiv(question) {
+export function showAnswerDiv(question, goBackCallback) {
   const answerDiv = document.getElementById('answer');
   answerDiv.innerHTML = `
       <div class="answer-frame">
@@ -236,16 +194,19 @@ function showAnswerDiv(question) {
 
   const continueButton = document.querySelector('.continue-button');
   continueButton.addEventListener('click', () => {
+    updateState(null, 'none');
     answerDiv.style.display = 'none';
-    showCategoryTable();
+    goBackCallback();
   });
 }
 
 /**
  * Displays the question and handles user interactions for answering the question.
  * @param {Object} question - The question object to display.
+ * @param {function} goBackCallback - Callback to return from the question
+ * to the main table
  */
-export function displayQuestion(question) {
+export function displayQuestion(question, goBackCallback) {
   // Show the question and hide the table
   const questionDiv = document.getElementById('question');
   questionDiv.innerHTML = generateQuestionMarkup(question);
@@ -253,11 +214,9 @@ export function displayQuestion(question) {
   if (question.choices) {
     addChoicesListeners(question);
   }
-
-  document.getElementById('category-table').style.display = 'none';
-  document.getElementById('scoreboard').style.display = 'none';
   questionDiv.style.display = 'block';
-  startTimer(QUESTION_TIME);
+  const questionStartTime = getQuestionTimestamp();
+  startTimer(questionStartTime, QUESTION_TIME);
 
   const correctButton = document.querySelector('#correct-button');
   const goBackButton = document.querySelector('#go-back-button');
@@ -267,13 +226,14 @@ export function displayQuestion(question) {
   // Add event listeners
   if (!question.choices) {
     correctButton.addEventListener('click', () => {
+      updateState(question.id, 'scoring');
       showQuestionScoring();
     });
   }
 
   goBackButton.addEventListener('click', () => {
-    document.getElementById('category-table').style.display = 'block';
-    document.getElementById('scoreboard').style.display = 'block';
+    updateState(null, 'none');
+    goBackCallback();
     questionDiv.style.display = 'none';
   });
 
@@ -283,8 +243,19 @@ export function displayQuestion(question) {
     addScoreToLocalStorage(question, teamSelect.value);
     // Add the question id to the used questions list and store it in local storage
     updateUsedQuestionsList(question);
-    hideQuestion();
     // Show the answer and hide the question
-    showAnswerDiv(question);
+    updateState(question.id, 'answer');
+    hideQuestion();
+    showAnswerDiv(question, goBackCallback);
   });
+}
+
+export function displayQuestionWithoutScoring(question, goBackCallback) {
+  displayQuestion(question, goBackCallback);
+  displaySelectedChoices(question);
+}
+
+export function displayQuestionWithScoring(question, goBackCallback) {
+  displayQuestionWithoutScoring(question, goBackCallback);
+  showQuestionScoring();
 }
