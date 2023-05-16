@@ -56,6 +56,9 @@ export function updateState(questionId, stage) {
     const state = JSON.parse(localStorage.getItem(LS_CURRENT_QUESTION));
     state.question_id = questionId;
     state.stage = stage;
+    if (stage === 'question') {
+      state.timestamp = new Date().getTime();
+    }
     localStorage.setItem(LS_CURRENT_QUESTION, JSON.stringify(state));
   }
 }
@@ -73,4 +76,18 @@ export function updateClickedChoiceList(listIndex) {
 export function getClickedChoiceList() {
   const state = JSON.parse(localStorage.getItem(LS_CURRENT_QUESTION));
   return state.choiceList;
+}
+
+export function getQuestionTimestamp() {
+  const state = JSON.parse(localStorage.getItem(LS_CURRENT_QUESTION));
+  return state.timestamp;
+}
+
+export function calculateRemainingSeconds(timestamp, seconds) {
+  const currentTimestamp = new Date().getTime();
+  const elapsedMilliseconds = currentTimestamp - timestamp;
+  const elapsedSeconds = Math.floor(elapsedMilliseconds / 1000);
+  const remainingSeconds = seconds - elapsedSeconds;
+
+  return remainingSeconds;
 }

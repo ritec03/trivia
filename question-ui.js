@@ -2,6 +2,8 @@ import {
   getTeamNames, addScoreToLocalStorage, updateUsedQuestionsList, updateState,
   updateClickedChoiceList,
   getClickedChoiceList,
+  calculateRemainingSeconds,
+  getQuestionTimestamp,
 } from './question-logic.js';
 
 const QUESTION_TIME = 11; // time allocated per question
@@ -41,32 +43,46 @@ function generateQuestionMarkup(question) {
   return markup;
 }
 
+function setTimerFontColor(timeRemaining) {
+  let timeColor;
+  if (timeRemaining <= 10 && timeRemaining > 5) {
+    timeColor = 'red';
+  } else if (timeRemaining <= 5 && timeRemaining > 0) {
+    timeColor = 'red';
+  } else {
+    timeColor = 'white';
+  }
+  return timeColor;
+}
+
+function generateTimerDiv(timeRemaining) {
+  const timerDiv = document.getElementById('timer');
+  const timerColor = setTimerFontColor(timeRemaining);
+  if (timeRemaining > 0) {
+    timerDiv.innerHTML = `<h2>Time remaining: <span style="color: ${timerColor};" id="time-remaining">${timeRemaining}</span></h2>`;
+    if (timeRemaining <= 5 && timeRemaining > 0) {
+      timerDiv.classList.add('pulsate');
+    }
+  } else {
+    timerDiv.innerHTML = '<h2>Time is UP!</h2>';
+  }
+  timerDiv.style.display = 'block';
+}
+
 /**
  * Starts the timer with the given time limit.
  * @param {number} timeLimit - The time limit for the timer.
  */
-function startTimer(timeLimit) {
-  // Display the timer
-  const timerDiv = document.getElementById('timer');
-  timerDiv.style.display = 'block';
-  let timerColor = 'white';
-  timerDiv.innerHTML = `<h2>Time remaining: <span style="color: ${timerColor};" id="time-remaining">${timeLimit}</span></h2>`;
 
-  // Start the timer
-  let timeRemaining = timeLimit;
+function startTimer(initialTimestamp, timeLimitSeconds) {
+  let timeRemaining = calculateRemainingSeconds(initialTimestamp, timeLimitSeconds);
+  generateTimerDiv(timeRemaining);
+
   const intervalId = setInterval(() => {
     timeRemaining -= 1;
-    timerColor = 'white';
-    if (timeRemaining <= 10 && timeRemaining > 5) {
-      timerColor = 'red';
-    } else if (timeRemaining <= 5) {
-      timerDiv.classList.add('pulsate');
-      timerColor = 'red';
-    }
-    timerDiv.innerHTML = `<h2>Time remaining: <span style="color: ${timerColor};" id="time-remaining">${timeRemaining}</span></h2>`;
-    if (timeRemaining === 0) {
+    generateTimerDiv(timeRemaining);
+    if (timeRemaining <= 0) {
       clearInterval(intervalId);
-      timerDiv.innerHTML = '<h2>Time is UP!</h2>';
     }
   }, 1000);
 }
@@ -199,7 +215,8 @@ export function displayQuestion(question, goBackCallback) {
     addChoicesListeners(question);
   }
   questionDiv.style.display = 'block';
-  startTimer(QUESTION_TIME);
+  const questionStartTime = getQuestionTimestamp();
+  startTimer(questionStartTime, QUESTION_TIME);
 
   const correctButton = document.querySelector('#correct-button');
   const goBackButton = document.querySelector('#go-back-button');

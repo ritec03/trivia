@@ -36,12 +36,14 @@ export const LS_TRIVIA_SCORES = 'trivia-scores';
 
 /*
 This key is used to store the information about the current quesiton,
-including the question id.
+including the question id, the stage the question is at, choices clicked
+for multiple-choice questions, and time stamp for when the question was started.
 Example of the structure found at the "current-question" local storage slot:
 {
   question_id: "questionId1",
   stage: "question" || "scoring" || "answer",
-  choicesClicked: null || [0,1,2,3]
+  choicesClicked: null || [0,1,2,3],
+  time_stamp: [timestamp]
 } || null ||
 */
 export const LS_CURRENT_QUESTION = 'current-question';
