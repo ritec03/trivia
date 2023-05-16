@@ -46,6 +46,11 @@ export function updateUsedQuestionsList(question) {
   localStorage.setItem(LS_USED_QUESTIONS, JSON.stringify(usedQuestions));
 }
 
+/**
+ * Updates the current state in local storage.
+ * @param {string|null} questionId - The ID of the question. Use null for no question.
+ * @param {string} stage - The current stage of the question.
+ */
 export function updateState(questionId, stage) {
   if (questionId === null) {
     localStorage.setItem(LS_CURRENT_QUESTION, JSON.stringify({
@@ -63,6 +68,10 @@ export function updateState(questionId, stage) {
   }
 }
 
+/**
+ * Updates the clicked choice list in the current state in local storage.
+ * @param {number} listIndex - The index of the clicked choice.
+ */
 export function updateClickedChoiceList(listIndex) {
   const state = JSON.parse(localStorage.getItem(LS_CURRENT_QUESTION));
   const choiceList = state.choiceList || [];
@@ -73,16 +82,30 @@ export function updateClickedChoiceList(listIndex) {
   localStorage.setItem(LS_CURRENT_QUESTION, JSON.stringify(state));
 }
 
+/**
+ * Retrieves the clicked choice list from the current state in local storage.
+ * @returns {number[]} The clicked choice list.
+ */
 export function getClickedChoiceList() {
   const state = JSON.parse(localStorage.getItem(LS_CURRENT_QUESTION));
   return state.choiceList;
 }
 
+/**
+ * Retrieves the timestamp of the current question from the current state in local storage.
+ * @returns {number} The timestamp of the current question.
+ */
 export function getQuestionTimestamp() {
   const state = JSON.parse(localStorage.getItem(LS_CURRENT_QUESTION));
   return state.timestamp;
 }
 
+/**
+ * Calculates the remaining seconds until given seconds have elapsed since the timstamp time.
+ * @param {number} timestamp - The timestamp of the question start.
+ * @param {number} seconds - The total seconds for the question.
+ * @returns {number} The remaining seconds.
+ */
 export function calculateRemainingSeconds(timestamp, seconds) {
   const currentTimestamp = new Date().getTime();
   const elapsedMilliseconds = currentTimestamp - timestamp;

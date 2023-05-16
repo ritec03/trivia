@@ -43,6 +43,11 @@ function generateQuestionMarkup(question) {
   return markup;
 }
 
+/**
+ * Sets the font color for the timer based on the remaining time.
+ * @param {number} timeRemaining - The remaining time in seconds.
+ * @returns {string} The color code for the timer font.
+ */
 function setTimerFontColor(timeRemaining) {
   let timeColor;
   if (timeRemaining <= 10 && timeRemaining > 5) {
@@ -55,6 +60,10 @@ function setTimerFontColor(timeRemaining) {
   return timeColor;
 }
 
+/**
+ * Generates the timer display based on the remaining time.
+ * @param {number} timeRemaining - The remaining time in seconds.
+ */
 function generateTimerDiv(timeRemaining) {
   const timerDiv = document.getElementById('timer');
   const timerColor = setTimerFontColor(timeRemaining);
@@ -70,10 +79,12 @@ function generateTimerDiv(timeRemaining) {
 }
 
 /**
- * Starts the timer with the given time limit.
- * @param {number} timeLimit - The time limit for the timer.
+ * Starts the timer with the specified initial timestamp and time limit.
+ * The timer goes from current time until timestamp+timelimit time unless
+ * time is up, in which case the timer shows "Time is up!".
+ * @param {number} initialTimestamp - The initial timestamp in milliseconds.
+ * @param {number} timeLimitSeconds - The time limit in seconds.
  */
-
 function startTimer(initialTimestamp, timeLimitSeconds) {
   let timeRemaining = calculateRemainingSeconds(initialTimestamp, timeLimitSeconds);
   generateTimerDiv(timeRemaining);
@@ -250,11 +261,21 @@ export function displayQuestion(question, goBackCallback) {
   });
 }
 
+/**
+ * Displays the question without scoring options.
+ * @param {object} question - The question object.
+ * @param {function} goBackCallback - The callback function to handle "Go Back" action.
+ */
 export function displayQuestionWithoutScoring(question, goBackCallback) {
   displayQuestion(question, goBackCallback);
   displaySelectedChoices(question);
 }
 
+/**
+ * Displays the question with scoring options.
+ * @param {object} question - The question object.
+ * @param {function} goBackCallback - The callback function to handle "Go Back" action.
+ */
 export function displayQuestionWithScoring(question, goBackCallback) {
   displayQuestionWithoutScoring(question, goBackCallback);
   showQuestionScoring();

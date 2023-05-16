@@ -48,6 +48,16 @@ export function generateQuestion(category, difficulty) {
   return selectedQuestion;
 }
 
+/**
+ * Retrieves the team scores from the local storage and calculates the total score for each team.
+ * @returns {Object} An object containing the team names as keys and their total scores as values.
+ * @example
+ * {
+ *   "Team A": 500,
+ *   "Team B": 300,
+ *   "Team C": 200
+ * }
+ */
 export function getTeamScores() {
   // Get the scores from local storage
   const scores = JSON.parse(localStorage.getItem('trivia-scores') || '[]');
@@ -70,12 +80,27 @@ export function getTeamScores() {
   return teamScores;
 }
 
+/**
+ * Retrieves the team name of the last scored team from the local storage.
+ * @returns {string} The team name of the last scored team.
+ * @example
+ * "Team A"
+ */
 export function getLastScoredTeam() {
   const scores = JSON.parse(localStorage.getItem(LS_TRIVIA_SCORES) || '[]');
+  if (scores.length === 0) {
+    return 'None';
+  }
   const lastScore = scores.pop();
   return lastScore.team_name;
 }
 
+/**
+ * Retrieves the set of unique categories from the available questions.
+ * @returns {Set} A set containing the unique categories.
+ * @example
+ * Set(3) { "Vancouver Landmarks", "Things", "Animals" }
+ */
 export function getCategories() {
   return new Set(allQuestions.map((q) => q.category));
 }

@@ -77,6 +77,10 @@ export function generateCategoryTable() {
   document.getElementById('category-table').style.display = 'block';
 }
 
+/**
+ * Makes the last scored team name pulsate for a certain duration.
+ * @param {HTMLElement} lastScoredTeamDiv - The HTML element containing the last scored team name.
+ */
 function makeLastScorerPuslate(lastScoredTeamDiv) {
   let timeRemaining = 4;
 
@@ -91,6 +95,10 @@ function makeLastScorerPuslate(lastScoredTeamDiv) {
   }, 1000);
 }
 
+/**
+ * Generates a horizontal score table based on the team scores.
+ * @param {Object} teamScores - An object containing the scores for each team.
+ */
 function generateHorizontalScoreTable(teamScores) {
   const sortedTeams = Object.keys(teamScores).sort((a, b) => teamScores[b] - teamScores[a]);
 
