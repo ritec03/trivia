@@ -53,9 +53,24 @@ export function updateState(questionId, stage) {
       stage: 'none',
     }));
   } else {
-    localStorage.setItem(LS_CURRENT_QUESTION, JSON.stringify({
-      question_id: questionId,
-      stage,
-    }));
+    const state = JSON.parse(localStorage.getItem(LS_CURRENT_QUESTION));
+    state.question_id = questionId;
+    state.stage = stage;
+    localStorage.setItem(LS_CURRENT_QUESTION, JSON.stringify(state));
   }
+}
+
+export function updateClickedChoiceList(listIndex) {
+  const state = JSON.parse(localStorage.getItem(LS_CURRENT_QUESTION));
+  const choiceList = state.choiceList || [];
+  if (!choiceList.includes(listIndex)) {
+    choiceList.push(listIndex);
+  }
+  state.choiceList = choiceList;
+  localStorage.setItem(LS_CURRENT_QUESTION, JSON.stringify(state));
+}
+
+export function getClickedChoiceList() {
+  const state = JSON.parse(localStorage.getItem(LS_CURRENT_QUESTION));
+  return state.choiceList;
 }

@@ -1,5 +1,7 @@
 import {
   getTeamNames, addScoreToLocalStorage, updateUsedQuestionsList, updateState,
+  updateClickedChoiceList,
+  getClickedChoiceList,
 } from './question-logic.js';
 
 const QUESTION_TIME = 11; // time allocated per question
@@ -18,10 +20,10 @@ function generateQuestionMarkup(question) {
         ${question.image ? `<img class="question-image" src="${question.image}">` : ''}
         ${question.choices ? `
             <ul class="choice-list">
-                <button class="choice-item" id="choice-1">${question.choices[0]}</button>
-                <button class="choice-item" id="choice-2">${question.choices[1]}</button>
-                <button class="choice-item" id="choice-3">${question.choices[2]}</button>
-                <button class="choice-item" id="choice-4">${question.choices[3]}</button>
+                <button class="choice-item" id="choice-0">${question.choices[0]}</button>
+                <button class="choice-item" id="choice-1">${question.choices[1]}</button>
+                <button class="choice-item" id="choice-2">${question.choices[2]}</button>
+                <button class="choice-item" id="choice-3">${question.choices[3]}</button>
             </ul>
         ` : ''}
         <div class="choice-button">
@@ -114,9 +116,12 @@ function addChoicesListeners(question) {
   const choiceButtons = document.querySelectorAll('.choice-item');
   choiceButtons.forEach((button) => {
     const handleClick = () => {
+      updateClickedChoiceList(button.id.split('-')[1]);
+      console.log(`Adding the following index ${button.id.split('-')[1]}`);
       // if it is correct, turn green, if not, turn red.
       if (button.textContent === question.answer) {
         button.classList.add('correct-choice');
+        updateState(question.id, 'scoring');
         showQuestionScoring();
       } else {
         button.classList.add('incorrect-choice');
@@ -124,6 +129,21 @@ function addChoicesListeners(question) {
       button.removeEventListener('click', handleClick);
     };
     button.addEventListener('click', handleClick);
+  });
+}
+
+function displaySelectedChoices(question) {
+  const choiceList = getClickedChoiceList();
+  if (!choiceList) {
+    return;
+  }
+  const choiceButtons = document.querySelectorAll('.choice-item');
+  choiceButtons.forEach((button) => {
+    if (button.textContent === question.answer && choiceList.includes(button.id.split('-')[1])) {
+      button.classList.add('correct-choice');
+    } else if (button.textContent !== question.answer && choiceList.includes(button.id.split('-')[1])) {
+      button.classList.add('incorrect-choice');
+    }
   });
 }
 
@@ -189,6 +209,7 @@ export function displayQuestion(question, goBackCallback) {
   // Add event listeners
   if (!question.choices) {
     correctButton.addEventListener('click', () => {
+      updateState(question.id, 'scoring');
       showQuestionScoring();
     });
   }
@@ -210,4 +231,14 @@ export function displayQuestion(question, goBackCallback) {
     hideQuestion();
     showAnswerDiv(question, goBackCallback);
   });
+}
+
+export function displayQuestionWithoutScoring(question, goBackCallback) {
+  displayQuestion(question, goBackCallback);
+  displaySelectedChoices(question);
+}
+
+export function displayQuestionWithScoring(question, goBackCallback) {
+  displayQuestionWithoutScoring(question, goBackCallback);
+  showQuestionScoring();
 }

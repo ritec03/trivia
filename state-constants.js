@@ -40,7 +40,8 @@ including the question id.
 Example of the structure found at the "current-question" local storage slot:
 {
   question_id: "questionId1",
-  stage: "question" || "scoring" || "answer"
+  stage: "question" || "scoring" || "answer",
+  choicesClicked: null || [0,1,2,3]
 } || null ||
 */
 export const LS_CURRENT_QUESTION = 'current-question';
