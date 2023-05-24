@@ -211,4 +211,14 @@ body {
   }
 
   
+  .container {
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+  }
+  
+  .content {
+    padding: 20px;
+    text-align: center;
+  }
   
