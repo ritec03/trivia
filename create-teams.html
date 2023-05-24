@@ -6,17 +6,25 @@
 </head>
 <body>
 	<h1>Create Teams</h1>
-	<p>Please enter the number of teams and their names:</p>
-	<form>
-		<label for="num-teams">Number of teams:</label>
-		<input type="number" id="num-teams" min="1" required><br>
-		<div id="team-names">
-			<label for="team-name-1">Team name 1:</label>
-			<input type="text" id="team-name-1" required><br>
-		</div>
-		<button type="submit" id="create-teams-button">Create teams</button>
-	</form>
-    <button id="scoreboard-button">Go to Leaderboard</button>
+	<h2>Please enter the number of teams and their names</h2>
+    <div class="container">
+        <div class="content">
+            <form>
+                <label for="num-teams">Number of teams:</label>
+                <input type="number" id="num-teams" min="1" required><br>
+                <div id="team-names">
+                    <label for="team-name-1">Team name 1:</label>
+                    <input type="text" id="team-name-1" required><br>
+                </div>
+            </form>
+        </div>
+        <div class="content">
+            <button type="submit" class="btn" id="create-teams-button">Create teams</button>
+        </div>
+        <div class="content">
+            <button id="scoreboard-button" class="btn">Go to Leaderboard</button>
+        </div>
+    </div>
 	<script>
 		const form = document.querySelector('form');
 		const numTeamsInput = document.getElementById('num-teams');
