@@ -82,6 +82,8 @@ export function getTeamScores() {
 
 /**
  * Retrieves the team name of the last scored team from the local storage.
+ * Returns 'None' if no scores are available or if last score is part of
+ * team initialization.
  * @returns {string} The team name of the last scored team.
  * @example
  * "Team A"
@@ -92,6 +94,11 @@ export function getLastScoredTeam() {
     return 'None';
   }
   const lastScore = scores.pop();
+  if (lastScore.score === 0) {
+    // if the lastScore score value is 0, then it is the initialization of trivia teams
+    // so we need to skip it
+    return 'None';
+  }
   return lastScore.team_name;
 }
 
