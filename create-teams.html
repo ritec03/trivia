@@ -8,19 +8,20 @@
 	<h1>Create Teams</h1>
 	<h2>Please enter the number of teams and their names</h2>
     <div class="container">
-        <div class="content">
-            <form>
+        <form>
+            <div class="content">
                 <label for="num-teams">Number of teams:</label>
                 <input type="number" id="num-teams" min="1" required><br>
                 <div id="team-names">
                     <label for="team-name-1">Team name 1:</label>
                     <input type="text" id="team-name-1" required><br>
                 </div>
-            </form>
-        </div>
-        <div class="content">
-            <button type="submit" class="btn" id="create-teams-button">Create teams</button>
-        </div>
+            </div>
+            <div class="content">
+                <button type="submit" class="btn" id="create-teams-button">Create teams</button>
+            </div>
+            <div class="content" id="team-list" style="display: none"></div>
+        </form>
         <div class="content">
             <button id="scoreboard-button" class="btn">Go to Leaderboard</button>
         </div>
@@ -30,6 +31,7 @@
 		const numTeamsInput = document.getElementById('num-teams');
 		const teamNamesDiv = document.getElementById('team-names');
 		const createTeamsButton = document.getElementById('create-teams-button');
+        const teamList = document.getElementById('team-list');
 
         const scoreboardButton = document.getElementById('scoreboard-button');
         scoreboardButton.addEventListener('click', function(event) {
@@ -54,9 +56,9 @@
                 let team = teamNames[i];
                 triviaScores.push({question_id: 0, team_name: team, score: 0});
             }
+            console.log(triviaScores);
             localStorage.setItem('trivia-scores', JSON.stringify(triviaScores));
             localStorage.setItem('used-questions', JSON.stringify([]));
-            console.log(triviaScores);
 
             // Display the list of participating teams
             let teamsList = document.createElement('ul');
@@ -67,9 +69,11 @@
                 teamsList.appendChild(teamItem);
             }
             let teamsContainer = document.createElement('div');
+            teamsContainer.classList.add('content');
             teamsContainer.appendChild(document.createTextNode('Participating teams: '));
             teamsContainer.appendChild(teamsList);
-            document.body.appendChild(teamsContainer);
+            teamList.innerHTML = teamsContainer.innerHTML;
+            teamList.style.display = "block";
         });
 
 

@@ -6,21 +6,28 @@
 </head>
 <body>
 	<h1>Trivia Scoreboard</h1>
-	<table id="score-table">
-		<thead>
-			<tr>
-				<th>Team Name</th>
-				<th>Score</th>
-			</tr>
-		</thead>
-		<tbody>
-		</tbody>
-	</table>
+	<div class="container">
+		<table class="content" id="score-table">
+			<thead>
+				<tr>
+					<th>Team Name</th>
+					<th>Score</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+		<button id="trivia-button" class="btn content">Go to trivia</button>
+	</div>
 
 	<script>
 		// Load the CSV file and generate the table
 		// NOTE start python server  by running  python -m http.server
 		function generateScoreTable() {
+			const triviaButton = document.getElementById("trivia-button");
+			triviaButton.addEventListener("click", () => {
+				window.location.href = 'trivia-questions.html';
+			})
 			// Get the scores from local storage
 			let scores = JSON.parse(localStorage.getItem('trivia-scores') || '[]');
 

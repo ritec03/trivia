@@ -215,6 +215,8 @@ body {
     display: flex;
     height: 100vh;
     flex-direction: column;
+    max-width: 300px;
+    margin: 0 auto; /* Center the container horizontally */
   }
   
   .content {
